@@ -7,10 +7,20 @@ from django.dispatch import receiver
 # Custom User Manager
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
-        pass
+        if not email:
+            raise ValueError("The Email field must be set")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save()
+        return user
 
     def create_superuser(self, email, password=None, **extra_fields):
-        pass
+        user = self.create_user(email, password, **extra_fields)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save()
+        return user
 
 
 # Custom User
