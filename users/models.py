@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -24,7 +24,7 @@ class UserManager(BaseUserManager):
 
 
 # Custom User
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -34,6 +34,9 @@ class User(AbstractBaseUser):
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email
 
 
 class Profile(models.Model):
