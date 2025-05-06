@@ -2,7 +2,7 @@
 
 An example Django app to learn some of the best practices.
 
-[![License](https://img.shields.io/badge/license-MIT%202.0-blue.svg)](https://github.com/ContentGardeningStudio/djangoexampleapp/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ContentGardeningStudio/djangoexampleapp/blob/main/LICENSE)
 
 ## Getting started
 
