@@ -1,37 +1,49 @@
 # djangoexampleapp
-Example Django app to learn some of the best practices
 
-## Getting Started
-You need a Python 3.10 (or higher) virtual environment
+An example Django app to learn some of the best practices.
 
-Clone this repository & install base dependencies:
+[![License](https://img.shields.io/badge/license-MIT%202.0-blue.svg)](https://github.com/ContentGardeningStudio/djangoexampleapp/blob/main/LICENSE)
+
+## Getting started
+
+You need a Python 3.10 (or higher) virtual environment.
+
+Clone the repository & install the dependencies:
 ```
 git clone https://github.com/ContentGardeningStudio/djangoexampleapp.git
 ```
 
-## Local development
-Ensure that your virtual environment is activated
-1. Install dependencies
+Ensure that your virtual environment is activated, and install the dependencies:
+
 ```
-pip install -r requirements.txt
+(venv) cd djangoexampleapp
+(venv) pip install -r requirements.txt
 ```
-2. Create database
+
+Initialize the database:
+
 ```
-python manage.py migrate
+(venv) python manage.py migrate
 ```
-3. Create admin
+
+Create the admin account:
+
 ```
 python manage.py createsuperuser
 ```
-4. Run the application
+
+Start the Django development server:
+
 ```
 python manage.py runserver
 ```
 
+Log in with the admin account using: http://127.0.0.1:8000/admin.
+
 ## Tests
-Tests are in the users directory
 
 Run the tests using `pytest`:
+
 ```
-pytest
+(venv) pytest
 ```
