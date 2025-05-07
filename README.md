@@ -9,11 +9,10 @@ An example Django app to learn some of the best practices.
 You need a Python 3.10 (or higher) virtual environment.
 
 Clone the repository & install the dependencies:
+
 ```
 git clone https://github.com/ContentGardeningStudio/djangoexampleapp.git
 ```
-
-Ensure that your virtual environment is activated, and install the dependencies:
 
 ```
 (venv) cd djangoexampleapp
