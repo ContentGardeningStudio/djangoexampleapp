@@ -54,3 +54,12 @@ Run the tests using `pytest`:
 ```
 (venv) pytest
 ```
+
+## TODO
+
+- Use django-split-settings
+- Use dotenv for project's secrets
+- Add templates + style, using https://github.com/radiac/django-style
+- Add optional social login, using https://github.com/pennersr/django-allauth
+- Move to `uv` for project management
+- Add Dockerfile
