@@ -1,8 +1,15 @@
-# djangoexampleapp
+# Django Example App
 
 An example Django app to learn some of the best practices.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ContentGardeningStudio/djangoexampleapp/blob/main/LICENSE)
+
+## Package features
+
+- Custom `User` model and associated `Profile` model
+- Unit tests
+- Ruff as code linter and formatter
+- Pre-commit hook configuration
 
 ## Getting started
 
