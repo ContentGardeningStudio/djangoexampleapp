@@ -4,14 +4,9 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
-from django.contrib import admin
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
-from django import forms
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
 # Custom User Manager
@@ -48,71 +43,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-
-class UserCreationForm(forms.ModelForm):
-    """A form for creating new users. Includes all the required
-    fields, plus a repeated password."""
-
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
-    # password2 = forms.CharField(
-    #     label="Password confirmation", widget=forms.PasswordInput
-    # )
-
-    class Meta:
-        model = User
-        fields = ["email"]
-
-    def save(self, commit=True):
-        # Save the provided password in hashed format
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])
-        if commit:
-            user.save()
-        return user
-
-
-class UserChangeForm(forms.ModelForm):
-    """A form for updating users. Includes all the fields on
-    the user, but replaces the password field with admin's
-    disabled password hash display field.
-    """
-
-    password = ReadOnlyPasswordHashField()
-
-    class Meta:
-        model = User
-        fields = ["email", "password", "is_staff"]
-
-
-class UserAdmin(BaseUserAdmin):
-    # The forms to add and change user instances
-    form = UserChangeForm
-    add_form = UserCreationForm
-
-    # The fields to be used in displaying the User model.
-    # These override the definitions on the base UserAdmin
-    # that reference specific fields on auth.User.
-    list_display = ["email", "is_staff"]
-    list_filter = ["is_staff"]
-    fieldsets = [
-        (None, {"fields": ["email", "password"]}),
-        ("Permissions", {"fields": ["is_staff"]}),
-    ]
-    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-    # overrides get_fieldsets to use this attribute when creating a user.
-    add_fieldsets = [
-        (
-            None,
-            {"classes": ["wide"], "fields": ["email", "password"]},
-        ),
-    ]
-    search_fields = ["email"]
-    ordering = ["email"]
-    filter_horizontal = []
-
-
-admin.site.register(User, UserAdmin)
 
 
 class Profile(models.Model):
