@@ -7,7 +7,7 @@ An example Django app to learn some of the best practices.
 ## Package features
 
 - Custom `User` model and associated `Profile` model
-- Unit tests
+- Unit tests (`pytest`, `pytest-cov`)
 - Ruff as code linter and formatter
 - Pre-commit hook configuration
 
