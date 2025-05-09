@@ -1,4 +1,3 @@
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import (
     AbstractBaseUser,
     BaseUserManager,
@@ -16,8 +15,9 @@ class UserManager(BaseUserManager):
             raise ValueError("The Email field must be set")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        hashed_password = make_password(password=password)
-        user.set_password(hashed_password)
+        # hashed_password = make_password(password=password)
+        # user.set_password(hashed_password)
+        user.set_password(password)
         user.save()
         return user
 
