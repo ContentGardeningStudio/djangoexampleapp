@@ -39,7 +39,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "users",
     "quotes",
+    "django_style",
 ]
+
+STYLE_THEME = "tailwind"  # or "simple" (default) or "bootstrap"
+STYLE_IS_APP = True  # enable app layout (default is False)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -127,11 +131,3 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
-
-PASSWORD_HASHERS = [
-    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
-    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
-    "django.contrib.auth.hashers.Argon2PasswordHasher",
-    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
-    "django.contrib.auth.hashers.ScryptPasswordHasher",
-]
