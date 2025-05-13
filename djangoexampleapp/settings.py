@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 ]
 
 STYLE_THEME = "tailwind"  # or "simple" (default) or "bootstrap"
-STYLE_IS_APP = True  # enable app layout (default is False)
+STYLE_IS_APP = False  # enable app layout (default is False)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
