@@ -10,7 +10,7 @@
               <p class="text-xl">{{ quote.quote }}</p>
             </blockquote>
             <figcaption class="text-md text-neutral-500">
-              - Posted at <cite title="Source Title">{{ quote.posted_date }}</cite>
+              - Posted at <cite title="Source Title">{{ quote.posted_date.date }}</cite>
             </figcaption>
       </div>
       {% endfor %}
