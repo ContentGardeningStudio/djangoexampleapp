@@ -4,6 +4,9 @@ from model_bakery import baker
 from faker import Faker
 from quotes.lib import quote_customizer
 
+import warnings
+warnings.filterwarnings('ignore')
+
 fake = Faker()
 
 
