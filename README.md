@@ -11,6 +11,8 @@ An example Django app to learn some of the best practices.
 - Ruff as code linter and formatter
 - Pre-commit hook configuration
 - CI configuration using Github Action
+- Modular settings structure, using `django-split-settings` 
+- Templates/Style based on `django-style`
 
 ## Getting started
 
@@ -57,9 +59,7 @@ Run the tests using `pytest`:
 
 ## TODO
 
-- Use django-split-settings
-- Use dotenv for project's secrets
-- Add templates + style, using https://github.com/radiac/django-style
+- Use env vars for project's secrets
 - Add optional social login, using https://github.com/pennersr/django-allauth
 - Move to `uv` for project management
 - Add Dockerfile
