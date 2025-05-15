@@ -20,6 +20,6 @@ from quotes import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("quotes/", views.list_quotes, name="list_quotes"),
+    path("", views.list_quotes, name="list_quotes"),
     path("contact", views.contact, name="contact"),
 ]
