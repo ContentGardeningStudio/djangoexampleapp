@@ -2,9 +2,14 @@ from .models import Quote
 from django.shortcuts import render
 from django_style import Nav
 from django.http import HttpResponse
+from django.core.paginator import Paginator
 
 
 def list_quotes(request):
+    quotes = Quote.objects.all()
+    paginator = Paginator(quotes, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
     return render(
         request,
         "quote/list_quotes.html",
@@ -13,7 +18,7 @@ def list_quotes(request):
                 Nav("Home", "list_quotes"),
                 Nav("Contact", "contact"),
             ],
-            "quotes": Quote.objects.all(),
+            "page_obj": page_obj,
         },
     )
 

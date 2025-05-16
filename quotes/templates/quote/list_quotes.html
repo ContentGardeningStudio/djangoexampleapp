@@ -4,15 +4,34 @@
       <div class="border-b-2 border-neutral-100 px-6 py-3 dark:border-white/10">
         <h2 class="text-4xl font-extrabold dark:text-white">Quotes</h2>
       </div>
-      {% for quote in quotes %}
+      {% for quote in page_obj %}
           <div class="p-6">
             <blockquote>
               <p class="text-xl">{{ quote.quote }}</p>
             </blockquote>
             <figcaption class="text-md text-neutral-500">
-              - Posted at <cite title="Source Title">{{ quote.posted_date.date }}</cite>
+                Author : {{ quote.author }}
+              - Posted by {{ quote.poster.email }} at <cite title="Source Title">{{ quote.posted_date.date }}</cite>
             </figcaption>
-      </div>
+          </div>
       {% endfor %}
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 {% endblock %}
