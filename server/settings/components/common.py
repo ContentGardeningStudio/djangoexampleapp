@@ -1,8 +1,8 @@
 """
-Django settings for djangoexampleapp project.
+Django settings for server project.
 """
 
-from djangoexampleapp.settings.components import BASE_DIR
+from server.settings.components import BASE_DIR
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-g^ap1tbw0a9vrl*vsb=-kv$$jfhz54($htr7@_2460=axf1+7^"
@@ -40,7 +40,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "djangoexampleapp.urls"
+ROOT_URLCONF = "server.urls"
 
 TEMPLATES = [
     {
@@ -58,7 +58,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "djangoexampleapp.wsgi.application"
+WSGI_APPLICATION = "server.wsgi.application"
 
 
 # Database

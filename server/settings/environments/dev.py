@@ -9,12 +9,12 @@ from __future__ import annotations
 import socket
 from typing import TYPE_CHECKING
 
-from djangoexampleapp.settings.components.common import (
+from server.settings.components.common import (
     DATABASES,
     INSTALLED_APPS,
     MIDDLEWARE,
 )
-# from djangoexampleapp.settings.components.csp import (
+# from server.settings.components.csp import (
 #     CSP_CONNECT_SRC,
 #     CSP_IMG_SRC,
 #     CSP_SCRIPT_SRC,
@@ -88,9 +88,7 @@ def _custom_show_toolbar(request: HttpRequest) -> bool:
 
 
 DEBUG_TOOLBAR_CONFIG = {
-    "SHOW_TOOLBAR_CALLBACK": (
-        "djangoexampleapp.settings.environments.dev._custom_show_toolbar"
-    ),
+    "SHOW_TOOLBAR_CALLBACK": ("server.settings.environments.dev._custom_show_toolbar"),
 }
 
 # # This will make debug toolbar to work with django-csp,
