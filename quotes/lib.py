@@ -1,5 +1,7 @@
-from faker import Faker
 import random
+
+from faker import Faker
+
 from users.models import User
 
 fake = Faker()

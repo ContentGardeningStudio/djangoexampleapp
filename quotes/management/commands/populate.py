@@ -1,11 +1,11 @@
+import warnings
+
 from django_docopt_command import DocOptCommand
-from quotes.models import Quote
-from users.models import User
 from model_bakery import baker
 
 from quotes.lib import model_data_customizer
-
-import warnings
+from quotes.models import Quote
+from users.models import User
 
 warnings.filterwarnings("ignore")
 

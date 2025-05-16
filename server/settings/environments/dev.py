@@ -14,6 +14,7 @@ from server.settings.components.common import (
     INSTALLED_APPS,
     MIDDLEWARE,
 )
+
 # from server.settings.components.csp import (
 #     CSP_CONNECT_SRC,
 #     CSP_IMG_SRC,

@@ -7,6 +7,10 @@ repos:
     - id: ruff
       types_or: [ python, pyi ]
       args: [ --fix ]
+    # Run the imports sorter.
+    - id: ruff
+      types_or: [ python, pyi ]
+      args: [ "check", "--select", "I", "--fix" ]
     # Run the formatter.
     - id: ruff-format
       types_or: [ python, pyi ]

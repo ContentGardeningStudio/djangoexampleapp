@@ -1,7 +1,9 @@
 import pytest
 from model_bakery import baker
-from .models import Quote
+
 from users.models import User
+
+from .models import Quote
 
 
 @pytest.mark.django_db

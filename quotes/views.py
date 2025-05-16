@@ -1,8 +1,9 @@
-from .models import Quote
+from django.core.paginator import Paginator
+from django.http import HttpResponse
 from django.shortcuts import render
 from django_style import Nav
-from django.http import HttpResponse
-from django.core.paginator import Paginator
+
+from .models import Quote
 
 
 def list_quotes(request):
