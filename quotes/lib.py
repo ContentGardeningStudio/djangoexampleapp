@@ -18,3 +18,7 @@ def quote_customizer():
         "poster": random.choice(all_users),
         "posted_date": fake.date_this_decade(),
     }
+
+
+def user_customizer():
+    return {"email": fake.email()}
