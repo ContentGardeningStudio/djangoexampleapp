@@ -17,6 +17,7 @@ class Command(DocOptCommand):
         Usage:
             populate (-h | --help)
             populate (--quote)
+            populate (--user <is_staff>)
             populate (--user)
         """
 
@@ -29,9 +30,15 @@ class Command(DocOptCommand):
                 except Exception as e:
                     print("Exception: ", e)
         elif arguments["--user"]:
-            for _ in range(20):
+            is_staff_argument = (
+                arguments["<is_staff>"] if arguments["<is_staff>"] else None
+            )
+            # if is_staff_argument is None, random boolean will be used
+            for _ in range(5):
                 try:
-                    new_user = baker.make(User, **user_customizer())
-                    print(f"New user created: {new_user}")
+                    new_user = baker.make(
+                        User, **user_customizer(is_staff=is_staff_argument)
+                    )
+                    print(f"New user created: {new_user} {new_user.is_staff}")
                 except Exception as e:
                     print("Exception: ", e)

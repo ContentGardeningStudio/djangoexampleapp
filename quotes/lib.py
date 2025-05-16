@@ -6,7 +6,7 @@ fake = Faker()
 
 
 def get_users():
-    return User.objects.filter(is_active=True)
+    return User.objects.filter(is_active=True, is_staff=True)
 
 
 def quote_customizer():
@@ -20,5 +20,7 @@ def quote_customizer():
     }
 
 
-def user_customizer():
-    return {"email": fake.email()}
+def user_customizer(is_staff=None):
+    if is_staff is not None:
+        return {"email": fake.email(), "is_staff": is_staff}
+    return {"email": fake.email(), "is_staff": fake.boolean()}
