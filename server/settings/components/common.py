@@ -22,9 +22,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_style",
     "users",
     "quotes",
-    "django_style",
+    "server",
 ]
 
 STYLE_THEME = "tailwind"  # or "simple" (default) or "bootstrap"
