@@ -40,7 +40,7 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS += (
     # Better debug:
-    # 'debug_toolbar',
+    "debug_toolbar",
     "zeal",
     # Linting migrations:
     "django_migration_linter",
@@ -65,7 +65,7 @@ INSTALLED_APPS += (
 # https://django-debug-toolbar.readthedocs.io
 
 MIDDLEWARE += (
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     # # https://github.com/conformist-mw/django-query-counter
     # # Prints how many queries were executed, useful for the APIs.
     # 'query_counter.middleware.DjangoQueryCounterMiddleware',
@@ -84,12 +84,13 @@ INTERNAL_IPS += ["127.0.0.1", "10.0.2.2"]
 
 def _custom_show_toolbar(request: HttpRequest) -> bool:
     """Only show the debug toolbar to users with the superuser flag."""
-    return DEBUG and request.user.is_superuser
+    # return DEBUG and request.user.is_superuser
+    return True
 
 
 DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TOOLBAR_CALLBACK": (
-        "server.settings.environments.development._custom_show_toolbar"
+        "djangoexampleapp.settings.environments.dev._custom_show_toolbar"
     ),
 }
 
