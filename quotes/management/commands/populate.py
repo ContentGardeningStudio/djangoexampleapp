@@ -2,14 +2,13 @@ from django_docopt_command import DocOptCommand
 from quotes.models import Quote
 from users.models import User
 from model_bakery import baker
-from faker import Faker
+
+# from faker import Faker
 from quotes.lib import quote_customizer, user_customizer
 
 import warnings
 
 warnings.filterwarnings("ignore")
-
-fake = Faker()
 
 
 class Command(DocOptCommand):
