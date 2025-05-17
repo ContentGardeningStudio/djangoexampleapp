@@ -3,8 +3,8 @@ import warnings
 from django_docopt_command import DocOptCommand
 from model_bakery import baker
 
-from quotes.lib import model_data_customizer
 from quotes.models import Quote
+from server.utils import model_data_customizer
 from users.models import User
 
 warnings.filterwarnings("ignore")
