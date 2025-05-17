@@ -38,6 +38,8 @@ STYLE_IS_APP = False  # enable app layout (default is False)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    # django-permissions-policy
+    "django_permissions_policy.PermissionsPolicyMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -111,6 +113,24 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+
+# Other Security settings
+# https://docs.djangoproject.com/en/4.2/topics/security/
+
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+
+X_FRAME_OPTIONS = "DENY"
+
+# https://docs.djangoproject.com/en/3.0/ref/middleware/#referrer-policy
+# https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy
+SECURE_REFERRER_POLICY = "same-origin"
+
+# https://github.com/adamchainz/django-permissions-policy#setting
+PERMISSIONS_POLICY: dict[str, str | list[str]] = {}
 
 
 # Internationalization
