@@ -16,16 +16,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Our apps
+    "users",
+    "quotes",
+    "server",
+    # Default django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Style
     "django_style",
-    "users",
-    "quotes",
-    "server",
+    # Security
+    "axes",
 ]
 
 STYLE_THEME = "tailwind"  # or "simple" (default) or "bootstrap"
@@ -39,6 +44,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Axes:
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -72,6 +79,20 @@ DATABASES = {
     }
 }
 
+# Django authentication system
+# https://docs.djangoproject.com/en/4.2/topics/auth/
+
+AUTHENTICATION_BACKENDS = (
+    "axes.backends.AxesBackend",
+    "django.contrib.auth.backends.ModelBackend",
+)
+
+PASSWORD_HASHERS = [
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
