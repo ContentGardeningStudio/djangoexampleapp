@@ -4,7 +4,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from users.models import User
+from users.models import Profile, User
 
 
 class UserCreationForm(forms.ModelForm):
@@ -92,3 +92,30 @@ class UserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, UserAdmin)
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        if obj is None:
+            return True  # allow to see the changelist
+        return obj.user == request.user
+
+    def has_view_permission(self, request, obj=None):
+        return self.has_change_permission(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        return False  # Optional: block delete for regular users
+
+    def has_add_permission(self, request):
+        return request.user.is_superuser  # prevent regular users from adding
+
+
+admin.site.register(Profile, ProfileAdmin)
