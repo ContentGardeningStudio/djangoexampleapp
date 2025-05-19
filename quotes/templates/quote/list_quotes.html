@@ -11,12 +11,12 @@
             </blockquote>
             <figcaption class="text-md text-neutral-500">
                 Author : {{ quote.author }}
-              - Posted by {{ quote.poster.email }} on <cite title="Source Title">{{ quote.posted_date.date }}</cite>
+              - Posted by {{ quote.user_profile.full_name }} on <cite title="Source Title">{{ quote.posted_date.date }}</cite>
             </figcaption>
           </div>
       {% endfor %}
 
-        <div class="pagination">
+        <div class="absolute right-0 bottom-0 size-16 pagination">
             <span class="step-links">
                 {% if page_obj.has_previous %}
                     <a href="?page=1">&laquo; first</a>
