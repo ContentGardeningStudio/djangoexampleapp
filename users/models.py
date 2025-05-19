@@ -15,8 +15,6 @@ class UserManager(BaseUserManager):
             raise ValueError("The Email field must be set")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
-        # hashed_password = make_password(password=password)
-        # user.set_password(hashed_password)
         user.set_password(password)
         user.save()
         return user
@@ -47,12 +45,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=300, default="Unknown")
+    full_name = models.CharField(max_length=300, default="")
     picture = models.ImageField(upload_to="profile_pics/")
     bio = models.TextField()
 
     def __str__(self):
-        return f"{self.user} profile"
+        return f"{self.full_name}"
 
 
 @receiver(post_save, sender=User)
