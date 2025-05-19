@@ -89,6 +89,11 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
 )
 
+# https://django-axes.readthedocs.io/en/latest/index.html
+# Enable / Disable Axes
+AXES_ENABLED = False
+AXES_FAILURE_LIMIT = 5
+
 PASSWORD_HASHERS = [
     "django.contrib.auth.hashers.Argon2PasswordHasher",
     "django.contrib.auth.hashers.PBKDF2PasswordHasher",
