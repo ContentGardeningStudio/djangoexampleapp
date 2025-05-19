@@ -1,5 +1,6 @@
 import warnings
 
+from django.contrib.auth.models import Group
 from django_docopt_command import DocOptCommand
 from model_bakery import baker
 
@@ -35,6 +36,10 @@ class Command(DocOptCommand):
                         "user", is_staff=arguments["--is-staff"]
                     )
                     new_user = baker.make(User, **data)
-                    print(f"New user created: {new_user} (Staff? {new_user.is_staff})")
+                    new_user.groups.add(Group.objects.get(name="Members"))
+
+                    print(
+                        f"New member user created: {new_user} (Staff? {new_user.is_staff})"
+                    )
                 except Exception as e:
                     print("Exception: ", e)
