@@ -1,4 +1,5 @@
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 from django_style import Nav
@@ -20,9 +21,8 @@ def register_view(request):
             profile.full_name = profile_form.cleaned_data["full_name"]
             profile.bio = profile_form.cleaned_data["bio"]
             profile.save()
-            return redirect("list_quotes")
-            # login(request, user)
-            # return redirect('profile')  # or any other page
+            login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+            return redirect("profile")
     else:
         user_form = UserRegisterForm()
         profile_form = ProfileForm()
@@ -47,4 +47,28 @@ def login_view(request):
             return redirect("profile")
     else:
         form = AuthenticationForm()
-    return render(request, "login.html", {"form": form})
+    return render(
+        request,
+        "user/login.html",
+        context={
+            "site_nav": [
+                Nav("Home", "list_quotes"),
+            ],
+            "form": form,
+        },
+    )
+
+
+@login_required
+def profile_view(request):
+    return render(
+        request,
+        "user/profile.html",
+        context={
+            "site_nav": [
+                Nav("Home", "list_quotes"),
+            ],
+            "user": request.user,
+            "profile": request.user.profile,
+        },
+    )

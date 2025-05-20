@@ -119,6 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Login redirect page
+LOGIN_REDIRECT_URL = "/profile/"
 
 # Other Security settings
 # https://docs.djangoproject.com/en/4.2/topics/security/
