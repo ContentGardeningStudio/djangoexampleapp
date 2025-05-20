@@ -1,4 +1,6 @@
-from django.contrib.auth import login
+from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
@@ -44,7 +46,7 @@ def login_view(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect("profile")
+            return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         form = AuthenticationForm()
     return render(
@@ -72,3 +74,9 @@ def profile_view(request):
             "profile": request.user.profile,
         },
     )
+
+
+def custom_logout_view(request):
+    logout(request)
+    messages.success(request, "You’ve been logged out successfully.")
+    return redirect("login")
