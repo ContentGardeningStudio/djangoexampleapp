@@ -32,7 +32,7 @@ def test_profile_created():
     user = baker.make(User, email="test@example.com", password="password123")
     # profile has been created because of the signal
     profile = Profile.objects.get(user=user)
-    assert str(profile) == "test@example.com profile"
+    assert str(profile) == "test@example.com"
     assert profile.user.email == "test@example.com"
     # we can update the profile
     image = SimpleUploadedFile("test_image.jpg", content=b"", content_type="image/jpeg")

@@ -50,7 +50,7 @@ class Profile(models.Model):
     bio = models.TextField()
 
     def __str__(self):
-        return f"{self.full_name}"
+        return f"{self.user.email}"
 
 
 @receiver(post_save, sender=User)
