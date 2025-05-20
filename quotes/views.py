@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from django.http import HttpResponse
 from django.shortcuts import render
 from django_style import Nav
 
@@ -17,12 +16,12 @@ def list_quotes(request):
         context={
             "site_nav": [
                 Nav("Home", "list_quotes"),
-                Nav("Contact", "contact"),
+                # Nav("Contact", "contact"),
             ],
             "page_obj": page_obj,
         },
     )
 
 
-def contact(request):
-    return HttpResponse("<h2>Contact</h2>")
+# def contact(request):
+#     return HttpResponse("<h2>Contact</h2>")

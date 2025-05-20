@@ -2,10 +2,12 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib import admin
 from django.urls import path
 
-from quotes import views
+from quotes import views as quotes_views
+from users import views as users_views
 
 urlpatterns = [
+    path("", quotes_views.list_quotes, name="list_quotes"),
     path("admin/", admin.site.urls),
-    path("", views.list_quotes, name="list_quotes"),
-    path("contact", views.contact, name="contact"),
+    path("register/", users_views.register_view, name="register"),
+    path("login/", users_views.login_view, name="login"),
 ] + debug_toolbar_urls()
