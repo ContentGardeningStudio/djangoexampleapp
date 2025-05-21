@@ -21,11 +21,13 @@ def register_view(request):
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            # profile has been created because of the signal
+            # here, profile should have been created because of the signal
+            # but, force the signal side effect to be fully available
+            user.refresh_from_db()
             profile = Profile.objects.get(user=user)
             profile.full_name = profile_form.cleaned_data["full_name"]
             profile.bio = profile_form.cleaned_data["bio"]
-            profile.save()
+            profile.save(update_fields=["full_name", "bio"])
             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             return redirect("profile")
     else:
