@@ -20,6 +20,3 @@ class Quote(models.Model):
 
     def __str__(self):
         return f"{self.quote} - {self.author} - By {self.poster}"
-
-    def __unicode__(self):
-        return self.quote
