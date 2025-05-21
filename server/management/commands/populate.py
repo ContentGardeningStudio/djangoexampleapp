@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django_docopt_command import DocOptCommand
 from model_bakery import baker
 
-from quotes.models import Quote
+from quotes.models import Quote, QuoteAuthor
 from server.utils import model_data_customizer
 from users.models import User
 
@@ -17,6 +17,7 @@ class Command(DocOptCommand):
         Usage:
             populate (-h | --help)
             populate --quote
+            populate --author
             populate --user [--is-staff]
         """
 
@@ -41,5 +42,13 @@ class Command(DocOptCommand):
                     print(
                         f"New member user created: {new_user} (Staff? {new_user.is_staff})"
                     )
+                except Exception as e:
+                    print("Exception: ", e)
+        elif arguments["--author"]:
+            for _ in range(20):
+                try:
+                    data = model_data_customizer("author")
+                    new_author = baker.make(QuoteAuthor, **data)
+                    print(f"New author created: {new_author}")
                 except Exception as e:
                     print("Exception: ", e)
