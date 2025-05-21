@@ -6,7 +6,7 @@ from quotes import views as quotes_views
 from users import views as users_views
 
 urlpatterns = [
-    path("", quotes_views.list_quotes, name="list_quotes"),
+    path("", quotes_views.home, name="home"),
     path("admin/", admin.site.urls),
     path("register/", users_views.register_view, name="register"),
     path("login/", users_views.login_view, name="login"),

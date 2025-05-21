@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main %}
+    {% block title %}
+      <h1 class="text-4xl font-bold text-gray-800 mb-6">{{ title }}</h1>
+    {% endblock %}
+
+    {% block messages %}
+{% if messages %}
+  <div class="mb-4">
+    {% for message in messages %}
+      <div class="p-3 rounded text-white {{ message.tags|yesno:'bg-green-500,bg-red-500' }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+    {% endblock %}
+    {% block content %}{% endblock %}
+{% endblock %}

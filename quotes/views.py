@@ -5,19 +5,25 @@ from django_style import Nav
 from .models import Quote
 
 
-def list_quotes(request):
+def home(request):
     quotes = Quote.objects.all().order_by("-posted_date").values()
     paginator = Paginator(quotes, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
+
+    site_nav = [
+        Nav("Home", "home"),
+    ]
+    if request.user.is_anonymous:
+        site_nav += [Nav("Login", "login"), Nav("Register", "register")]
+    else:
+        site_nav += [Nav("Profile", "profile"), Nav("Logout", "logout")]
+
     return render(
         request,
-        "quote/list_quotes.html",
+        "home.html",
         context={
-            "site_nav": [
-                Nav("Home", "list_quotes"),
-                # Nav("Contact", "contact"),
-            ],
+            "site_nav": site_nav,
             "page_obj": page_obj,
         },
     )

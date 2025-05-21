@@ -1,16 +1,5 @@
-
-{% extends "base.html" %}
+{% extends "site_base.html" %}
 {% block content %}
-{% if messages %}
-  <div class="mb-4">
-    {% for message in messages %}
-      <div class="p-3 rounded text-white {{ message.tags|yesno:'bg-green-500,bg-red-500' }}">
-        {{ message }}
-      </div>
-    {% endfor %}
-  </div>
-{% endif %}
-
 <div class="flex items-center justify-center">
 <div class="w-full sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl p-6 sm:p-8 lg:p-10">
 

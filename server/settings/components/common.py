@@ -119,7 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Login redirect page
+# Login settings
+LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/profile/"
 
 # Other Security settings
