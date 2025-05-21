@@ -7,13 +7,14 @@ An example Django app to learn some of the best practices.
 ## Package features
 
 - Custom `User` model and associated `Profile` model
+- Registration, Login, and Profile UX
 - `Quote` model, to support data created by users in the app
 - Unit tests for models (using `pytest`, `pytest-cov`, and `model-bakery`)
 - Ruff as code linter and formatter + Pre-commit hook
 - CI configuration using Github Action
 - Modular settings structure, using `django-split-settings`
 - Configured Django Debug Toolbar
-- Templates/Style based on `django-style`
+- Base template/style leveraging `django-style` and TailwindCSS
 - Management commands
 - Improved security using `django-axes` and `django-permissions-policy`
 
