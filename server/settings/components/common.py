@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Style
     "django_style",
+    "widget_tweaks",
     # Security
     "axes",
 ]
