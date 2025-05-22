@@ -33,3 +33,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ("full_name", "bio")  # adjust fields as needed
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["full_name", "bio", "picture"]

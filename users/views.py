@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
 from django_style import Nav
 
-from .forms import ProfileForm, UserRegisterForm
+from .forms import ProfileForm, ProfileUpdateForm, UserRegisterForm
 from .models import Profile
 
 default_nav = [
@@ -79,6 +79,30 @@ def profile_view(request):
             "site_nav": site_nav,
             "user": request.user,
             "profile": request.user.profile,
+        },
+    )
+
+
+@login_required
+def edit_profile_view(request):
+    if request.method == "POST":
+        profile_form = ProfileUpdateForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect("profile")
+    else:
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+    site_nav = [Nav("Home", "home"), Nav("Logout", "logout")]
+
+    return render(
+        request,
+        "user/edit_profile.html",
+        context={
+            "site_nav": site_nav,
+            "profile_form": profile_form,
         },
     )
 

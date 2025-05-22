@@ -11,5 +11,6 @@ urlpatterns = [
     path("register/", users_views.register_view, name="register"),
     path("login/", users_views.login_view, name="login"),
     path("profile/", users_views.profile_view, name="profile"),
+    path("profile/edit/", users_views.edit_profile_view, name="edit_profile"),
     path("logout/", users_views.custom_logout_view, name="logout"),
 ] + debug_toolbar_urls()
