@@ -6,7 +6,7 @@ from .models import Quote
 
 
 def home(request):
-    quotes = Quote.objects.all().order_by("-posted_date").values()
+    quotes = Quote.objects.all().order_by("-posted_date")
     paginator = Paginator(quotes, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
