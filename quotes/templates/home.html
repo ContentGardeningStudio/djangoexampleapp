@@ -10,7 +10,7 @@
               <p class="text-xl">{{ quote.quote }}</p>
             </blockquote>
             <p>Author : {{ quote.author.name }}
-              - Posted by {{ quote.poster }} on {{ quote.posted_date.date }}</p>
+              - Posted by {{ quote.poster.full_name }} on {{ quote.posted_date.date }}</p>
           </div>
       {% endfor %}
 
