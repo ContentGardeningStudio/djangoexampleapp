@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="flex items-center justify-center">
+<div class="w-full sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl p-6 sm:p-8 lg:p-10">
+
+ <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Your Profile</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+      {% csrf_token %}
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Full Name</label>
+        {{ profile_form.full_name|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm" }}
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Bio</label>
+        {{ profile_form.bio|add_class:"mt-1 block w-full rounded-md border-gray-300 shadow-sm" }}
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Avatar</label>
+        {{ profile_form.picture }}
+        {{ profile_form.picture.errors }}
+      </div>
+
+      <div>
+        <button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+          Save Changes
+        </button>
+      </div>
+    </form>
+
+</div>
+</div>
+
+{% endblock %}
