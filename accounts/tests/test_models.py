@@ -6,7 +6,7 @@ from accounts.models import Profile, User
 
 
 @pytest.mark.django_db
-def test_user_create():
+def test_create_user():
     user = baker.make(User, email="test@example.com", password="password123")
     assert user.email == "test@example.com"
     assert user.is_active
@@ -16,7 +16,7 @@ def test_user_create():
 
 
 @pytest.mark.django_db
-def test_superuser_create():
+def test_create_superuser():
     superuser = User.objects.create_superuser(
         email="admin@example.com", password="admin123"
     )
@@ -28,7 +28,7 @@ def test_superuser_create():
 
 
 @pytest.mark.django_db
-def test_profile_created():
+def test_create_profile():
     user = baker.make(User, email="test@example.com", password="password123")
     # profile has been created because of the signal
     profile = Profile.objects.get(user=user)
