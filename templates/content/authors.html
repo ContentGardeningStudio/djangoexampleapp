@@ -6,9 +6,11 @@
             <h2 class="text-4xl font-extrabold dark:text-white">Authors</h2>
         </div>
       {% for author in authors %}
-          <div class="p-6">
+          <div class="p-3">
             <blockquote>
-              <p class="text-xl">{{ author.name }}</p>
+              <p class="text-xl">
+                  <a href="{% url 'author' author.id %}">{{ author.name }}</a>
+              </p>
             </blockquote>
           </div>
       {% endfor %}

@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 from django_style import Nav
 
 from .models import Quote, QuoteAuthor
@@ -76,3 +76,11 @@ class HomeView(CustomListView):
     context_object_name = "quotes"
     template_name = "content/home.html"
     paginate_by = 10
+
+
+class QuoteAuthorDetailView(DetailView):
+    model = QuoteAuthor
+    context_object_name = "author"
+    template_name = "content/author.html"
+    slug_field = "id"
+    slug_url_kwarg = "id"

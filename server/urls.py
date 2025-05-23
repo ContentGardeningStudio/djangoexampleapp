@@ -13,6 +13,11 @@ urlpatterns = (
         path(
             "authors", quotes_views.QuoteAuthorListView.as_view(), name="list_authors"
         ),
+        path(
+            "author/<int:id>",
+            quotes_views.QuoteAuthorDetailView.as_view(),
+            name="author",
+        ),
         path("admin/", admin.site.urls),
         path("register/", users_views.register_view, name="register"),
         path("login/", users_views.login_view, name="login"),
