@@ -10,7 +10,9 @@ from quotes import views as quotes_views
 urlpatterns = (
     [
         path("", quotes_views.home, name="home"),
-        path("authors", quotes_views.list_authors, name="list_authors"),
+        path(
+            "authors", quotes_views.QuoteAuthorListView.as_view(), name="list_authors"
+        ),
         path("admin/", admin.site.urls),
         path("register/", users_views.register_view, name="register"),
         path("login/", users_views.login_view, name="login"),
