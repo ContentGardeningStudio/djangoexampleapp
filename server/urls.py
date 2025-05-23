@@ -4,8 +4,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
+from accounts import views as users_views
 from quotes import views as quotes_views
-from users import views as users_views
 
 urlpatterns = (
     [

@@ -1,7 +1,7 @@
 import pytest
 from model_bakery import baker
 
-from users.models import Profile, User
+from accounts.models import Profile, User
 
 from .models import Quote, QuoteAuthor
 

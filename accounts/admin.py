@@ -4,11 +4,11 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from users.models import Profile, User
+from accounts.models import Profile, User
 
 
 class UserCreationForm(forms.ModelForm):
-    """A form for creating new users"""
+    """A form for creating new accounts"""
 
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(
@@ -37,7 +37,7 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-    """A form for updating users. Includes all the fields on
+    """A form for updating accounts. Includes all the fields on
     the user, but replaces the password field with admin's
     disabled password hash display field.
     """
@@ -112,10 +112,10 @@ class ProfileAdmin(admin.ModelAdmin):
         return self.has_change_permission(request, obj)
 
     def has_delete_permission(self, request, obj=None):
-        return False  # Optional: block delete for regular users
+        return False  # Optional: block delete for regular accounts
 
     def has_add_permission(self, request):
-        return request.user.is_superuser  # prevent regular users from adding
+        return request.user.is_superuser  # prevent regular accounts from adding
 
 
 admin.site.register(Profile, ProfileAdmin)

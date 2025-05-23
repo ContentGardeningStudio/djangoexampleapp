@@ -2,8 +2,8 @@ import random
 
 from faker import Faker
 
+from accounts.models import Profile, User
 from quotes.models import QuoteAuthor
-from users.models import Profile, User
 
 fake = Faker()
 

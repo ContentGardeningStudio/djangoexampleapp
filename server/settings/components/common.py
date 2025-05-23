@@ -17,7 +17,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Our apps
-    "users",
+    "accounts",
     "quotes",
     "server",
     # Default django apps
@@ -168,7 +168,7 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "accounts.User"
 
 # Media files
 MEDIA_URL = "/media/"

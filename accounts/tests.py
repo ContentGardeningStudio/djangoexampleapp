@@ -2,7 +2,7 @@ import pytest
 from django.core.files.uploadedfile import SimpleUploadedFile
 from model_bakery import baker
 
-from users.models import Profile, User
+from accounts.models import Profile, User
 
 
 @pytest.mark.django_db

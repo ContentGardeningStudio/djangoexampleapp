@@ -4,9 +4,9 @@ from django.contrib.auth.models import Group
 from django_docopt_command import DocOptCommand
 from model_bakery import baker
 
+from accounts.models import Profile, User
 from quotes.models import Quote, QuoteAuthor
 from server.utils import model_data_customizer
-from users.models import Profile, User
 
 warnings.filterwarnings("ignore")
 

@@ -7,7 +7,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # User = get_user_model()
-        # Profile = apps.get_model('users.Profile')
+        # Profile = apps.get_model('accounts.Profile')
 
         # Create or get groups
         admins, _ = Group.objects.get_or_create(name="Administrators")
@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
         # Admin group: all permissions
         admin_perms = Permission.objects.filter(
-            content_type__app_label__in=["auth", "users", "quotes"],
+            content_type__app_label__in=["auth", "accounts", "quotes"],
         )
         admins.permissions.set(admin_perms)
 

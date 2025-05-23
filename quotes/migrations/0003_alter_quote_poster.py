@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
     dependencies = [
         ("quotes", "0002_quote_author"),
-        ("users", "0004_profile_full_name"),
+        ("accounts", "0004_profile_full_name"),
     ]
 
     operations = [
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.DO_NOTHING,
-                to="users.profile",
+                to="accounts.profile",
             ),
         ),
     ]

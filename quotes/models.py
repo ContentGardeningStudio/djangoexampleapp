@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models import Profile
+from accounts.models import Profile
 
 
 class QuoteAuthor(models.Model):
