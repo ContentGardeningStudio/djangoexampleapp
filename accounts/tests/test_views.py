@@ -42,7 +42,7 @@ class AccountViewsTests(TestCase):
         self.client.login(username="alice@testing.com", password="pass123")
         response = self.client.get(reverse("profile"))
         assert response.status_code == 200
-        assert "profile" in response.context
+        assert "site_nav" in response.context
 
     def test_edit_profile_view_post(self):
         _ = User.objects.create_user(email="eve@testing.com", password="pass123")

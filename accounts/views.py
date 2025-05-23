@@ -1,113 +1,94 @@
-from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView as DjangoLoginView
+from django.contrib.auth.views import LogoutView as DjangoLogoutView
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView
+from django.views.generic.edit import UpdateView, View
 from django_style import Nav
+
+from server.utils import SiteNavMixin
 
 from .forms import ProfileForm, ProfileUpdateForm, UserRegisterForm
 from .models import Profile
 
-default_nav = [
-    Nav("Home", "home"),
-]
 
+class RegisterView(SiteNavMixin, View):
+    template_name = "account/register.html"
+    success_url = reverse_lazy("profile")
 
-def register_view(request):
-    if request.method == "POST":
+    def get_site_nav(self):
+        return super().get_site_nav() + [Nav("Login", "login")]
+
+    def get(self, request, *args, **kwargs):
+        user_form = UserRegisterForm()
+        profile_form = ProfileForm()
+        return render(
+            request,
+            self.template_name,
+            {
+                "user_form": user_form,
+                "profile_form": profile_form,
+                "site_nav": self.get_site_nav(),
+            },
+        )
+
+    def post(self, request, *args, **kwargs):
         user_form = UserRegisterForm(request.POST)
         profile_form = ProfileForm(request.POST, request.FILES)
-
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            # here, profile should have been created because of the signal
-            # but, force the signal side effect to be fully available
             user.refresh_from_db()
-            profile = Profile.objects.get(user=user)
+            profile = user.profile
             profile.full_name = profile_form.cleaned_data["full_name"]
             profile.bio = profile_form.cleaned_data["bio"]
             profile.save(update_fields=["full_name", "bio"])
             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
-            return redirect("profile")
-    else:
-        user_form = UserRegisterForm()
-        profile_form = ProfileForm()
-
-    site_nav = [Nav("Home", "home"), Nav("Login", "login")]
-
-    return render(
-        request,
-        "account/register.html",
-        context={
-            "site_nav": site_nav,
-            "user_form": user_form,
-            "profile_form": profile_form,
-        },
-    )
-
-
-def login_view(request):
-    if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            login(request, form.get_user())
-            return redirect(settings.LOGIN_REDIRECT_URL)
-    else:
-        form = AuthenticationForm()
-
-    site_nav = [Nav("Home", "home"), Nav("Register", "register")]
-
-    return render(
-        request,
-        "account/login.html",
-        context={
-            "site_nav": site_nav,
-            "form": form,
-        },
-    )
-
-
-@login_required
-def profile_view(request):
-    site_nav = [Nav("Home", "home"), Nav("Logout", "logout")]
-
-    return render(
-        request,
-        "account/profile.html",
-        context={
-            "site_nav": site_nav,
-            "user": request.user,
-            "profile": request.user.profile,
-        },
-    )
-
-
-@login_required
-def edit_profile_view(request):
-    if request.method == "POST":
-        profile_form = ProfileUpdateForm(
-            request.POST, request.FILES, instance=request.user.profile
+            return redirect(self.success_url)
+        return render(
+            request,
+            self.template_name,
+            {
+                "user_form": user_form,
+                "profile_form": profile_form,
+                "site_nav": self.get_site_nav(),
+            },
         )
-        if profile_form.is_valid():
-            profile_form.save()
-            return redirect("profile")
-    else:
-        profile_form = ProfileUpdateForm(instance=request.user.profile)
-
-    site_nav = [Nav("Home", "home"), Nav("Logout", "logout")]
-
-    return render(
-        request,
-        "account/edit_profile.html",
-        context={
-            "site_nav": site_nav,
-            "profile_form": profile_form,
-        },
-    )
 
 
-def custom_logout_view(request):
-    logout(request)
-    messages.success(request, "You’ve been logged out successfully.")
-    return redirect("login")
+class LoginView(SiteNavMixin, DjangoLoginView):
+    template_name = "account/login.html"
+    success_url = reverse_lazy("profile")
+
+    def get_site_nav(self):
+        return super().get_site_nav() + [Nav("Register", "register")]
+
+
+class LogoutView(DjangoLogoutView):
+    next_page = "login"
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "You’ve been logged out successfully.")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class ProfileView(SiteNavMixin, LoginRequiredMixin, TemplateView):
+    template_name = "account/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["site_nav"] = self.get_site_nav()
+        context["profile"] = self.request.user.profile
+        return context
+
+
+class EditProfileView(SiteNavMixin, LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ProfileUpdateForm
+    template_name = "account/edit_profile.html"
+    success_url = reverse_lazy("profile")
+
+    def get_object(self):
+        return self.request.user.profile

@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from accounts import views as users_views
+from accounts import views as accounts_views
 from quotes import views as quotes_views
 
 urlpatterns = (
@@ -19,11 +19,15 @@ urlpatterns = (
             name="author",
         ),
         path("admin/", admin.site.urls),
-        path("register/", users_views.register_view, name="register"),
-        path("login/", users_views.login_view, name="login"),
-        path("profile/", users_views.profile_view, name="profile"),
-        path("profile/edit/", users_views.edit_profile_view, name="edit_profile"),
-        path("logout/", users_views.custom_logout_view, name="logout"),
+        path("register/", accounts_views.RegisterView.as_view(), name="register"),
+        path("login/", accounts_views.LoginView.as_view(), name="login"),
+        path("profile/", accounts_views.ProfileView.as_view(), name="profile"),
+        path(
+            "profile/edit/",
+            accounts_views.EditProfileView.as_view(),
+            name="edit_profile",
+        ),
+        path("logout/", accounts_views.LogoutView.as_view(), name="logout"),
     ]
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     + debug_toolbar_urls()

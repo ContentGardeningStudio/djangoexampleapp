@@ -1,5 +1,6 @@
 import random
 
+from django_style import Nav
 from faker import Faker
 
 from accounts.models import Profile, User
@@ -13,7 +14,7 @@ def get_active_users(only_staff=False):
         users = User.objects.filter(is_active=True, is_staff=True)
     else:
         users = User.objects.filter(is_active=True)
-    print(users)
+    # print(users)
     return Profile.objects.filter(user__in=users)
 
 
@@ -42,3 +43,13 @@ def model_data_customizer(model_name, **kwargs):
             }
         case _:
             print("Not handled!")
+
+
+class SiteNavMixin:
+    def get_site_nav(self):
+        return [Nav("Home", "home")]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["site_nav"] = self.get_site_nav()
+        return context
