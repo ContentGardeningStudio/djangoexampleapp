@@ -19,7 +19,7 @@ def home(request):
 
     return render(
         request,
-        "home.html",
+        "content/home.html",
         context={
             "site_nav": site_nav,
             "page_obj": page_obj,
@@ -41,13 +41,9 @@ def list_authors(request):
 
     return render(
         request,
-        "authors.html",
+        "content/authors.html",
         context={
             "site_nav": site_nav,
             "page_obj": page_obj,
         },
     )
-
-
-# def contact(request):
-#     return HttpResponse("<h2>Contact</h2>")

@@ -38,7 +38,7 @@ def register_view(request):
 
     return render(
         request,
-        "user/register.html",
+        "account/register.html",
         context={
             "site_nav": site_nav,
             "user_form": user_form,
@@ -60,7 +60,7 @@ def login_view(request):
 
     return render(
         request,
-        "user/login.html",
+        "account/login.html",
         context={
             "site_nav": site_nav,
             "form": form,
@@ -74,7 +74,7 @@ def profile_view(request):
 
     return render(
         request,
-        "user/profile.html",
+        "account/profile.html",
         context={
             "site_nav": site_nav,
             "user": request.user,
@@ -99,7 +99,7 @@ def edit_profile_view(request):
 
     return render(
         request,
-        "user/edit_profile.html",
+        "account/edit_profile.html",
         context={
             "site_nav": site_nav,
             "profile_form": profile_form,
