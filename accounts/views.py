@@ -7,7 +7,6 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import UpdateView, View
-from django_style import Nav
 
 from server.utils import SiteNavMixin
 
@@ -18,9 +17,6 @@ from .models import Profile
 class RegisterView(SiteNavMixin, View):
     template_name = "account/register.html"
     success_url = reverse_lazy("profile")
-
-    def get_site_nav(self):
-        return super().get_site_nav() + [Nav("Login", "login")]
 
     def get(self, request, *args, **kwargs):
         user_form = UserRegisterForm()
@@ -62,9 +58,6 @@ class LoginView(SiteNavMixin, DjangoLoginView):
     template_name = "account/login.html"
     success_url = reverse_lazy("profile")
 
-    def get_site_nav(self):
-        return super().get_site_nav() + [Nav("Register", "register")]
-
 
 class LogoutView(DjangoLogoutView):
     next_page = "login"
@@ -76,12 +69,6 @@ class LogoutView(DjangoLogoutView):
 
 class ProfileView(SiteNavMixin, LoginRequiredMixin, TemplateView):
     template_name = "account/profile.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["site_nav"] = self.get_site_nav()
-        context["profile"] = self.request.user.profile
-        return context
 
 
 class EditProfileView(SiteNavMixin, LoginRequiredMixin, UpdateView):

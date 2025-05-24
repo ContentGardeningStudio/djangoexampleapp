@@ -9,27 +9,26 @@
 
     <div class="space-y-2 text-gray-700">
       <p><strong>Email:</strong> {{ user.email }}</p>
-      <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
-      <p><strong>Bio:</strong> {{ profile.bio }}</p>
+      <p><strong>Full Name:</strong> {{ request.user.profile.full_name }}</p>
+      <p><strong>Bio:</strong> {{ request.user.profile.bio }}</p>
 
-      {% if profile.picture %}
+      {% if request.user.profile.picture %}
         <div class="mt-4">
-          <img src="{{ profile.picture.url }}" alt="Avatar" class="w-24 h-24 rounded-full shadow" />
+          <img src="{{ request.user.profile.picture.url }}" alt="Avatar" class="w-24 h-24 rounded-full shadow" />
         </div>
       {% endif %}
     </div>
 
     <div class="mt-6">
-<form method="post" action="{% url 'logout' %}">
-  {% csrf_token %}
-  <button type="submit" class="text-red-500 hover:underline text-sm">Log out</button>
-</form>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="text-red-500 hover:underline text-sm">Log out</button>
+        </form>
     </div>
 
     <p class="text-sm text-center mt-6 text-gray-600">
       <a href="{% url 'edit_profile' %}" class="text-blue-500 hover:underline">Update your profile</a>
     </p>
-
 
 </div>
 </div>

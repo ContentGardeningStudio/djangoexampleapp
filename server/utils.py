@@ -47,7 +47,7 @@ def model_data_customizer(model_name, **kwargs):
 
 class SiteNavMixin:
     def get_site_nav(self):
-        return [Nav("Home", "home")]
+        return [Nav("Home", "home"), Nav("Authors", "authors")]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
