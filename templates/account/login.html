@@ -1,33 +1,66 @@
 {% extends "base_layout.html" %}
+{% load socialaccount %}
 {% load widget_tweaks %}
+{% load i18n %}
+{% load allauth account %}
+
 {% block content %}
 <div class="flex items-center justify-center">
 <div class="w-full sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl p-6 sm:p-8 lg:p-10">
 
-    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login to your account</h2>
-    <form method="post" class="space-y-4">
-      {% csrf_token %}
-      {{ form.non_field_errors }}
+    <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login</h2>
 
-      {% for field in form %}
-        <div>
-          <label class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
-          {{ field|add_class:"bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" }}
-          {% if field.errors %}
-            <p class="text-sm text-red-500">{{ field.errors|striptags }}</p>
-          {% endif %}
-        </div>
-      {% endfor %}
-
-      <button type="submit" class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md">
-        Login
-      </button>
-    </form>
-    <p class="text-sm text-center mt-4 text-gray-600">
-      Don’t have an account? <a href="{% url 'register' %}" class="text-blue-500 hover:underline">Register here</a>
-    </p>
+    {% if not SOCIALACCOUNT_ONLY %}
+        {% setvar link %}
+            <a href="{{ signup_url }}">
+            {% endsetvar %}
+            {% setvar end_link %}
+            </a>
+        {% endsetvar %}
+        {% element p %}
+            {% blocktranslate %}If you have not created an account yet, then please {{ link }}sign up{{ end_link }} first.{% endblocktranslate %}
+        {% endelement %}
+        {% url 'account_login' as login_url %}
+        {% element form form=form method="post" action=login_url tags="entrance,login" %}
+            {% slot body %}
+                {% csrf_token %}
+                {% element fields form=form unlabeled=True %}
+                {% endelement %}
+                {{ redirect_field }}
+            {% endslot %}
+            {% slot actions %}
+                {% element button type="submit" tags="prominent,login" %}
+                    {% trans "Sign In" %}
+                {% endelement %}
+            {% endslot %}
+        {% endelement %}
+    {% endif %}
+    {% if LOGIN_BY_CODE_ENABLED or PASSKEY_LOGIN_ENABLED %}
+        {% element hr %}
+        {% endelement %}
+        {% element button_group vertical=True %}
+            {% if PASSKEY_LOGIN_ENABLED %}
+                {% element button type="submit" form="mfa_login" id="passkey_login" tags="prominent,login,outline,primary" %}
+                    {% trans "Sign in with a passkey" %}
+                {% endelement %}
+            {% endif %}
+            {% if LOGIN_BY_CODE_ENABLED %}
+                {% element button href=request_login_code_url tags="prominent,login,outline,primary" %}
+                    {% trans "Send me a sign-in code" %}
+                {% endelement %}
+            {% endif %}
+        {% endelement %}
+    {% endif %}
+    {% if SOCIALACCOUNT_ENABLED %}
+        {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
+    {% endif %}
+{% endblock content %}
+{% block extra_body %}
+    {{ block.super }}
+    {% if PASSKEY_LOGIN_ENABLED %}
+        {% include "mfa/webauthn/snippets/login_script.html" with button_id="passkey_login" %}
+    {% endif %}
 
 </div>
 </div>
-
 {% endblock %}

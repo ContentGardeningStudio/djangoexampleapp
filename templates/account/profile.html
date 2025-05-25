@@ -20,10 +20,10 @@
     </div>
 
     <div class="mt-6">
-        <form method="post" action="{% url 'logout' %}">
-          {% csrf_token %}
-          <button type="submit" class="text-red-500 hover:underline text-sm">Log out</button>
-        </form>
+<form method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="text-sm text-gray-600 hover:text-red-600">Logout</button>
+</form>
     </div>
 
     <p class="text-sm text-center mt-6 text-gray-600">

@@ -2,7 +2,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from accounts import views as accounts_views
 from quotes import views as quotes_views
@@ -16,15 +16,19 @@ urlpatterns = [
         name="author",
     ),
     path("admin/", admin.site.urls),
-    path("register/", accounts_views.RegisterView.as_view(), name="register"),
-    path("login/", accounts_views.LoginView.as_view(), name="login"),
+    path("accounts/signup/", accounts_views.CustomSignupView.as_view(), name="signup"),
+    path(
+        "accounts/login/",
+        accounts_views.CustomLoginView.as_view(),
+        name="account_login",
+    ),
+    path("accounts/", include("allauth.urls")),  # enables social + email login
     path("profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path(
         "profile/edit/",
         accounts_views.EditProfileView.as_view(),
         name="edit_profile",
     ),
-    path("logout/", accounts_views.LogoutView.as_view(), name="logout"),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:

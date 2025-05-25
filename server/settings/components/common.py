@@ -21,18 +21,30 @@ INSTALLED_APPS = [
     "quotes",
     "server",
     # Default django apps
+    "django.contrib.sites",  # Required by allauth
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Style
+    # Allauth
+    # "allauth_ui",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    # Needed providers
+    "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.github",
+    # Style + UI tweaks
     "django_style",
     "widget_tweaks",
+    # "slippers",
     # Security
     "axes",
 ]
+
+SITE_ID = 1
 
 STYLE_THEME = "tailwind"  # or "simple" (default) or "bootstrap"
 STYLE_IS_APP = False  # enable app layout (default is False)
@@ -47,8 +59,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    # Axes:
+    # Axes
     "axes.middleware.AxesMiddleware",
+    # Allauth
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = "server.urls"
@@ -89,7 +103,9 @@ DATABASES = {
 
 AUTHENTICATION_BACKENDS = (
     "axes.backends.AxesBackend",
-    "django.contrib.auth.backends.ModelBackend",
+    "django.contrib.auth.backends.ModelBackend",  # default login
+    # `allauth` specific authentication methods, such as login by email
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
 # https://django-axes.readthedocs.io/en/latest/index.html
@@ -122,9 +138,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Login settings
-LOGIN_URL = "/login"
-LOGIN_REDIRECT_URL = "/profile/"
+# Account / Login settings
+LOGIN_REDIRECT_URL = "profile"
+ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
+ACCOUNT_SIGNUP_REDIRECT_URL = "profile"
+
+# Using username-less signup flow with allauth
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+ACCOUNT_FORMS = {
+    "signup": "accounts.forms.CustomAllauthSignupForm",
+}
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
+# allauth UI
+# ALLAUTH_UI_THEME = "light"
 
 # Other Security settings
 # https://docs.djangoproject.com/en/4.2/topics/security/
@@ -175,3 +205,26 @@ AUTH_USER_MODEL = "accounts.User"
 # Media files
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": ["profile", "email"],
+        "AUTH_PARAMS": {"access_type": "online"},
+    },
+    # "github": {
+    #     "SCOPE": ["user", "user:email"],
+    # },
+}
+
+SOCIALACCOUNT_APPS = {
+    "google": {
+        "client_id": "1035880918281-rvvtq8e1q331jsd6mj64hmjjbgb4els6.apps.googleusercontent.com",
+        "secret": "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",
+    },
+    # "github": {
+    #     "client_id": "GITHUB_CLIENT_ID",
+    #     "secret": "GITHUB_CLIENT_SECRET",
+    # },
+}
