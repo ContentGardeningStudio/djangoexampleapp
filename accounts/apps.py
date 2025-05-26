@@ -1,3 +1,5 @@
+import sys
+
 from django.apps import AppConfig
 from django.conf import settings
 
@@ -7,7 +9,8 @@ class AccountsConfig(AppConfig):
     name = "accounts"
 
     def ready(self):
-        print("TEST TEST")
+        if "runserver" not in sys.argv and "gunicorn" not in sys.argv:
+            return
 
         from allauth.socialaccount.models import SocialApp
         from django.contrib.sites.models import Site
