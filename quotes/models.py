@@ -1,4 +1,5 @@
 from django.db import models
+from django_countries.fields import CountryField
 from taggit.managers import TaggableManager
 
 from accounts.models import Profile
@@ -6,6 +7,7 @@ from accounts.models import Profile
 
 class QuoteAuthor(models.Model):
     name = models.CharField(max_length=300)
+    country = CountryField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"

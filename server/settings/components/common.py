@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # Security
     "axes",
     "taggit",
+    "django_countries",
 ]
 
 SITE_ID = 1
