@@ -1,4 +1,5 @@
 from django.db import models
+from taggit.managers import TaggableManager
 
 from accounts.models import Profile
 
@@ -17,6 +18,7 @@ class Quote(models.Model):
     )
     posted_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(QuoteAuthor, on_delete=models.DO_NOTHING)
+    tags = TaggableManager()
 
     def __str__(self):
         return f"{self.quote} - {self.author} - By {self.poster}"

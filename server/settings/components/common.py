@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # "slippers",
     # Security
     "axes",
+    "taggit",
 ]
 
 SITE_ID = 1
