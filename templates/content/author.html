@@ -9,7 +9,7 @@
                 {% for quote in author.quote_set.all %}
                     <div class="p-3">
                         <blockquote>
-                          <p class="text-xl">{{ quote.quote }}</p>
+                          <p class="text-xl italic font-semibold text-gray-900 dark:text-white">{{ quote.quote }}</p>
                         </blockquote>
                         <p>Posted by {{ quote.poster.full_name }} on {{ quote.posted_date.date }}</p>
                     </div>
