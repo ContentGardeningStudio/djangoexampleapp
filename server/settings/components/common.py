@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Allauth
-    # "allauth_ui",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
@@ -39,17 +38,18 @@ INSTALLED_APPS = [
     # Style + UI tweaks
     "django_style",
     "widget_tweaks",
-    # "slippers",
     # Security
     "axes",
+    # Other functionalities
     "taggit",
     "django_countries",
 ]
 
 SITE_ID = 1
 
-STYLE_THEME = "tailwind"  # or "simple" (default) or "bootstrap"
-STYLE_IS_APP = False  # enable app layout (default is False)
+# django_style settings
+STYLE_THEME = "tailwind"
+STYLE_IS_APP = False
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -154,9 +154,6 @@ ACCOUNT_FORMS = {
 }
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
-
-# allauth UI
-# ALLAUTH_UI_THEME = "light"
 
 # Other Security settings
 # https://docs.djangoproject.com/en/4.2/topics/security/

@@ -18,20 +18,55 @@
         {% blocktranslate %}Already have an account? Then please {{ link }}sign in{{ end_link }}.{% endblocktranslate %}
     {% endelement %}
     {% if not SOCIALACCOUNT_ONLY %}
-        {% url 'account_signup' as action_url %}
-        {% element form form=form method="post" action=action_url tags="entrance,signup" %}
-            {% slot body %}
-                {% csrf_token %}
-                {% element fields form=form unlabeled=True %}
-                {% endelement %}
-                {{ redirect_field }}
-            {% endslot %}
-            {% slot actions %}
-                {% element button tags="prominent,signup" type="submit" %}
-                    {% trans "Sign Up" %}
-                {% endelement %}
-            {% endslot %}
-        {% endelement %}
+
+<form method="post" action="{% url 'account_signup' %}" class="space-y-6">
+    {% csrf_token %}
+    {{ redirect_field }}
+
+    <!-- Email field -->
+    <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
+        <input type="email" name="email" id="email" required
+               value="{{ form.email.value|default_if_none:'' }}"
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                      focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-3
+                      {% if form.email.errors %}border-red-500{% endif %}">
+        {% if form.email.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Password field -->
+    <div>
+        <label for="password1" class="block text-sm font-medium text-gray-700">Password</label>
+        <input type="password" name="password1" id="password1" required
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                      focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-3
+                      {% if form.password1.errors %}border-red-500{% endif %}">
+        {% if form.password1.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.password1.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Password confirmation -->
+    <div>
+        <label for="password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+        <input type="password" name="password2" id="password2" required
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                      focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-3
+                      {% if form.password2.errors %}border-red-500{% endif %}">
+        {% if form.password2.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ form.password2.errors.0 }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Submit -->
+    <button type="submit"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-md">
+        Sign Up
+    </button>
+</form>
+
     {% endif %}
     {% if PASSKEY_SIGNUP_ENABLED %}
         {% element hr %}
