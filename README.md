@@ -45,6 +45,15 @@ Create the admin account:
 python manage.py createsuperuser
 ```
 
+Create fake data:
+
+```
+python manage.py populate --user --is-staff
+python manage.py populate --author
+python manage.py populate --quote
+
+```
+
 Start the Django development server:
 
 ```
