@@ -38,9 +38,7 @@ def model_data_customizer(model_name, **kwargs):
                 "posted_date": fake.date_this_decade(),
             }
         case "author":
-            return {
-                "name": fake.name(),
-            }
+            return {"name": fake.name(), "country": fake.country_code()}
         case _:
             print("Not handled!")
 
