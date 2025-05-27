@@ -6,7 +6,8 @@ from .models import Quote, QuoteAuthor
 
 
 class HomeView(SiteNavMixin, ListView):
-    queryset = Quote.objects.all().order_by("-posted_date")
+    # queryset = Quote.objects.all().order_by("-posted_date")
+    queryset = Quote.objects.prefetch_related("author").all()
     context_object_name = "quotes"
     template_name = "content/home.html"
     paginate_by = 10

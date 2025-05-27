@@ -15,6 +15,9 @@
                         </a>
                 - Posted by {{ quote.poster.full_name }} on {{ quote.posted_date.date }}
             </p>
+            <p>
+                {% for tag in quote.tags.all %}{{ tag }} {% endfor %}
+            </p>
           </div>
       {% endfor %}
 
