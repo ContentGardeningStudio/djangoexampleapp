@@ -55,8 +55,8 @@ INSTALLED_APPS += (
     # 'django_test_migrations.contrib.django_checks.DatabaseConfiguration',
     # # django-extra-checks:
     # 'extra_checks',
-    # # django-query-counter:
-    # 'query_counter',
+    # django-query-counter:
+    "query_counter",
     # # django-drifter:
     # 'drifter',
 )
@@ -67,9 +67,9 @@ INSTALLED_APPS += (
 
 MIDDLEWARE += (
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    # # https://github.com/conformist-mw/django-query-counter
-    # # Prints how many queries were executed, useful for the APIs.
-    # 'query_counter.middleware.DjangoQueryCounterMiddleware',
+    # https://github.com/conformist-mw/django-query-counter
+    # Prints how many queries were executed, useful for the APIs.
+    "query_counter.middleware.DjangoQueryCounterMiddleware",
 )
 
 # https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#configure-internal-ips
