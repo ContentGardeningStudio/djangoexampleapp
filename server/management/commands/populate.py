@@ -1,13 +1,28 @@
+import os
 import random
+import sys
 import warnings
 
+import markovify
 from django.contrib.auth.models import Group
+from django.db import IntegrityError
 from django_docopt_command import DocOptCommand
 from model_bakery import baker
 
 from accounts.models import Profile, User
 from quotes.models import Quote, QuoteAuthor
 from server.utils import model_data_customizer
+
+# Optional: RAKE
+try:
+    import nltk
+    from rake_nltk import Rake
+
+    nltk.download("stopwords", quiet=True)
+    nltk.download("punkt_tab", quiet=True)
+    USE_RAKE = True
+except ImportError:
+    USE_RAKE = False
 
 warnings.filterwarnings("ignore")
 
@@ -24,15 +39,48 @@ class Command(DocOptCommand):
 
     def handle_docopt(self, arguments):
         if arguments["--quote"]:
+            use_rake = USE_RAKE
+
+            corpus_path = "data/inspirational_quotes.txt"
+            if not os.path.exists(corpus_path):
+                print(f"Missing corpus file (at {corpus_path})")
+                sys.exit(1)
+
+            with open(corpus_path, encoding="utf-8") as f:
+                corpus = f.read()
+            nlp_model = markovify.Text(corpus)
+
+            # create quotes
             for _ in range(20):
                 data = model_data_customizer("quote")
-                new_quote = baker.make(Quote, **data)
-                print(new_quote.quote.split())
-                for _ in range(3):
-                    split_quote = new_quote.quote.split()
-                    random_word_in_split_quote = random.choice(split_quote)
-                    new_quote.tags.add(random_word_in_split_quote)
-                print(f"New quote created: {new_quote}")
+                # override the default quote text using the NLP model
+                data["quote"] = nlp_model.make_short_sentence(140)
+                try:
+                    new_quote = baker.make(Quote, **data)
+                except IntegrityError as e:
+                    print(e)
+                    new_quote = None
+
+                if new_quote is not None:
+                    text = new_quote.quote
+                    if use_rake:
+                        rake = Rake()
+                        rake.extract_keywords_from_text(text)
+                        tags = rake.get_ranked_phrases()[:3]
+                    else:
+                        # naïve approach
+                        tags = []
+                        split_text = text.split()
+                        for _ in range(4):
+                            random_word = random.choice(split_text)
+                            tags.append(random_word)
+
+                    # convert to lowercase
+                    tags = [tag.lower() for tag in tags]
+                    new_quote.tags.add(*tags)
+                    print(
+                        f"New quote created: {new_quote.quote}. Tags: {new_quote.tags.all()}"
+                    )
         elif arguments["--user"]:
             # handles user + profile
             for _ in range(5):
