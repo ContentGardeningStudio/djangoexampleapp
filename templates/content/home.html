@@ -16,7 +16,7 @@
                 - Posted by {{ quote.poster.full_name }} on {{ quote.posted_date.date }}
             </p>
             <p>
-                {% for tag in quote.tags.all %}{{ tag.name }} {% endfor %}
+                Tags: {% for tag in quote.tags.all %}{{ tag.name | lower }}{% if not forloop.last %}, {% endif %}{% endfor %}
             </p>
           </div>
       {% endfor %}
