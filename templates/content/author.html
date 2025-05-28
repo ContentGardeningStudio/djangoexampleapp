@@ -6,7 +6,7 @@
             <h2 class="text-2xl font-bold mb-4 text-gray-800">{{ author.name }}</h2>
 
             <div class="space-y-2 text-gray-700">
-                {% for quote in author.quote_set.all %}
+                {% for quote in object_list %}
                     <div class="p-3">
                         <blockquote>
                           <p class="text-xl italic font-semibold text-gray-900 dark:text-white">{{ quote.quote }}</p>
