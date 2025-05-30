@@ -24,3 +24,9 @@ def test_quote_create():
 def test_author_create():
     my_author = baker.make(QuoteAuthor, name="John Doe")
     assert str(my_author) == "John Doe"
+
+
+@pytest.mark.django_db
+def test_author_slug():
+    my_author = baker.make(QuoteAuthor, name="Jean Dupont")
+    assert str(my_author.slug) == "jean-dupont"

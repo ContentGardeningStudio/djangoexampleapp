@@ -15,7 +15,7 @@
               <p class="text-xl italic font-semibold text-gray-900 dark:text-white">{{ quote.quote }}</p>
             </blockquote>
             <p>
-                Author: <a href="{% url 'author' quote.author.id %}">
+                Author: <a href="{% url 'author' quote.author.slug %}">
                             <span class="font-medium text-blue-600 hover:underline">{{ quote.author.name }}</span>
                         </a>
                 - Posted by {{ quote.poster.full_name }} on {{ quote.posted_date.date }}

@@ -20,7 +20,7 @@ class QuoteAuthor(models.Model):
         return super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse("author", args=[str(self.slug)])
+        return reverse("author", kwargs={"slug": self.slug})
 
 
 class Quote(models.Model):
