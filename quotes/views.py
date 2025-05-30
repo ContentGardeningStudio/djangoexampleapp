@@ -11,14 +11,14 @@ class HomeView(SiteNavMixin, ListView):
         .prefetch_related("tags")
         .order_by("-posted_date")
     )
-    context_object_name = "quotes"
+    # context_object_name = "quotes"  # not needed, we use page_obj since we have pagination
     template_name = "content/home.html"
     paginate_by = 10
 
 
 class QuoteAuthorListView(SiteNavMixin, ListView):
     queryset = QuoteAuthor.objects.all().order_by("-name")
-    context_object_name = "authors"
+    # context_object_name = "authors"
     template_name = "content/authors.html"
     paginate_by = 10
 

@@ -1,0 +1,16 @@
+{% extends "layouts/base.html" %}
+{% load socialaccount %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load allauth account %}
+
+{% block content %}
+<div class="flex items-center justify-center">
+<div class="w-full sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl p-6 sm:p-8 lg:p-10">
+
+    {% block content_head %}{% endblock %}
+    {% block content_main %}{% endblock %}
+
+</div>
+</div>
+{% endblock %}

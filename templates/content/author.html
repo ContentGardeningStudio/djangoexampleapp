@@ -1,20 +1,24 @@
-{% extends "base_layout.html" %}
+{% extends "layouts/listing_page.html" %}
 
-{% block content %}
-    <div class="flex items-center justify-center">
-        <div class="w-full sm:max-w-lg lg:max-w-xl bg-white shadow-xl rounded-2xl p-6 sm:p-8 lg:p-10">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">{{ author.name }}</h2>
-
-            <div class="space-y-2 text-gray-700">
-                {% for quote in object_list %}
-                    <div class="p-3">
-                        <blockquote>
-                          <p class="text-xl italic font-semibold text-gray-900 dark:text-white">{{ quote.quote }}</p>
-                        </blockquote>
-                        <p>Posted by {{ quote.poster.full_name }} on {{ quote.posted_date.date }}</p>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
+{% block content_head %}
+  <div class="border-neutral-100 px-6 py-3 dark:border-white/10">
+    <h2 class="text-4xl font-extrabold dark:text-white">Quotes from {{ author.name }}</h2>
+  </div>
 {% endblock %}
+
+{% block content_main %}
+<div class="block rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
+      {% for quote in object_list %}
+          <div class="p-6">
+            <blockquote>
+              <p class="text-xl italic font-semibold text-gray-900 dark:text-white">{{ quote.quote }}</p>
+            </blockquote>
+            <p>
+                Tags: {% for tag in quote.tags.all %}{{ tag.name | lower }}{% if not forloop.last %}, {% endif %}{% endfor %}
+            </p>
+          </div>
+      {% endfor %}
+</div>
+{% endblock %}
+
+{% block pagination %}{% endblock %}

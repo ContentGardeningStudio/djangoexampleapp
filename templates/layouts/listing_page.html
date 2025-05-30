@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<div class="block rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-white">
+
+        {% block content_head %}{% endblock %}
+        {% block content_main %}{% endblock %}
+        {% block pagination %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endblock %}
+</div>
+{% endblock %}
