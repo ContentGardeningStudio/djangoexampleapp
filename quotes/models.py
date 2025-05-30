@@ -9,7 +9,7 @@ from accounts.models import Profile
 class QuoteAuthor(models.Model):
     name = models.CharField(max_length=300)
     country = CountryField(null=True, blank=True)
-    slug = models.SlugField(null=False, unique=True)
+    slug = models.SlugField(null=False, blank=False, unique=True)
 
     def __str__(self):
         return f"{self.name}"
