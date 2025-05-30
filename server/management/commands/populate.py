@@ -6,6 +6,7 @@ import warnings
 import markovify
 from django.contrib.auth.models import Group
 from django.db import IntegrityError
+from django.utils.text import slugify
 from django_docopt_command import DocOptCommand
 from model_bakery import baker
 
@@ -104,7 +105,6 @@ class Command(DocOptCommand):
         elif arguments["--author"]:
             for _ in range(10):
                 data = model_data_customizer("author")
-                author_slug = data["name"].lower().replace(" ", "-")
-                data["slug"] = author_slug
+                data["slug"] = slugify(data["name"])
                 new_author = baker.make(QuoteAuthor, **data)
                 print(f"New author created: {new_author} {new_author.slug}")
