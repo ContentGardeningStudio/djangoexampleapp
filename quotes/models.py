@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django_countries.fields import CountryField
 from taggit.managers import TaggableManager
 
@@ -17,6 +18,9 @@ class QuoteAuthor(models.Model):
         if not self.slug:
             self.slug = self.name.lower().replace(" ", "-")
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("author", args=[str(self.slug)])
 
 
 class Quote(models.Model):
