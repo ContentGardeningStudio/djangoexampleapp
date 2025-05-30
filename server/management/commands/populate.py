@@ -104,6 +104,7 @@ class Command(DocOptCommand):
         elif arguments["--author"]:
             for _ in range(10):
                 data = model_data_customizer("author")
+                author_slug = data["name"].lower().replace(" ", "-")
+                data["slug"] = author_slug
                 new_author = baker.make(QuoteAuthor, **data)
-                new_author.slug = new_author.name.lower().replace(" ", "-")
                 print(f"New author created: {new_author} {new_author.slug}")
