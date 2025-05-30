@@ -102,7 +102,7 @@ class Command(DocOptCommand):
                 new_user_prof.save()
                 print(f"=> Profile for the user created: {new_user_prof.full_name}")
         elif arguments["--author"]:
-            for _ in range(20):
+            for _ in range(10):
                 data = model_data_customizer("author")
                 new_author = baker.make(QuoteAuthor, **data)
                 print(f"New author created: {new_author}")
