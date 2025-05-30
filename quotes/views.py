@@ -27,8 +27,8 @@ class QuoteAuthorDetailView(SiteNavMixin, DetailView):
     model = QuoteAuthor
     context_object_name = "author"
     template_name = "content/author.html"
-    slug_field = "id"
-    slug_url_kwarg = "id"
+    slug_field = "slug"
+    slug_url_kwarg = "slug"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

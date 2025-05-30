@@ -11,7 +11,7 @@ urlpatterns = [
     path("", quotes_views.HomeView.as_view(), name="home"),
     path("authors", quotes_views.QuoteAuthorListView.as_view(), name="authors"),
     path(
-        "author/<int:id>",
+        "author/<slug:slug>",
         quotes_views.QuoteAuthorDetailView.as_view(),
         name="author",
     ),
