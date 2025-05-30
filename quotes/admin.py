@@ -10,7 +10,7 @@ class QuoteAuthorAdmin(admin.ModelAdmin):
         "name",
         "country",
     )
-    prepopulated_fields = {"slug": ("name".lower().replace(" ", "-"),)}
+    prepopulated_fields = {"slug": ("name",)}
 
 
 admin.site.register(QuoteAuthor, QuoteAuthorAdmin)
