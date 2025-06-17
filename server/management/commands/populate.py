@@ -93,7 +93,7 @@ class Command(DocOptCommand):
             nlp_model = markovify.Text(corpus)
 
             # create quotes
-            for _ in range(20):
+            for _ in range(10):
                 data = model_data_customizer("quote")
                 # override the default quote text using the NLP model
                 data["quote"] = nlp_model.make_short_sentence(140)
@@ -158,8 +158,10 @@ class Command(DocOptCommand):
                 msg = msg + f" - Name: {new_user_prof.full_name}"
                 print(msg)
         elif arguments["--author"]:
-            for _ in range(10):
+            for _ in range(5):
                 data = model_data_customizer("author")
                 data["slug"] = slugify(data["name"])
                 new_author = baker.make(QuoteAuthor, **data)
-                print(f"New author created: {new_author} {new_author.slug}")
+                print(
+                    f"New author created: {new_author.name} (country: {new_author.country}) - {new_author.slug}"
+                )
