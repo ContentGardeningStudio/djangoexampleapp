@@ -31,15 +31,6 @@ warnings.filterwarnings("ignore")
 fake = Faker()
 
 
-# def get_active_users(only_staff=False):
-#     if only_staff:
-#         users = User.objects.filter(is_active=True, is_staff=True)
-#     else:
-#         users = User.objects.filter(is_active=True)
-#     # print(users)
-#     return Profile.objects.filter(user__in=users)
-
-
 def model_data_customizer(model_name, **kwargs):
     match model_name:
         case "user":
