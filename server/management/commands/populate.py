@@ -34,16 +34,17 @@ fake = Faker()
 def model_data_customizer(model_name, **kwargs):
     match model_name:
         case "user":
+            first_name = fake.first_name()
+            last_name = fake.last_name()
             person = {
-                "full_name": fake.name(),
-                "email": fake.email(),
+                "full_name": f"{first_name} {last_name}",
+                "email": f"{first_name.lower()}.{last_name.lower()}@{fake.domain_name()}",
             }
             if "is_staff" in kwargs:
                 person["is_staff"] = kwargs["is_staff"]
             else:
                 person["is_staff"] = fake.boolean()
             return person
-            # to do: handle the generation of the password?
         case "quote":
             users = User.objects.filter(is_active=True)
             profiles = Profile.objects.filter(user__in=users)
@@ -143,10 +144,9 @@ class Command(DocOptCommand):
                 new_user_prof.full_name = person_data["full_name"]
                 new_user_prof.save()
 
-                msg = f"New member user created: {new_user.email} - password: {fake_password}"
+                msg = f"New member user created: {new_user_prof.full_name} - {new_user.email} - {fake_password}"
                 if new_user.is_staff:
-                    msg = f"New STAFF member user created: {new_user.email} - password: {fake_password}"
-                msg = msg + f" - Name: {new_user_prof.full_name}"
+                    msg = f"{msg} (STAFF)"
                 print(msg)
         elif arguments["--author"]:
             for _ in range(5):
