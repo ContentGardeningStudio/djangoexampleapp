@@ -4,7 +4,7 @@ An example Django app to learn some of the best practices.
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ContentGardeningStudio/djangoexampleapp/blob/main/LICENSE)
 
-## Package features
+## Package / Demo features
 
 - Custom `User` model and associated `Profile` model
 - Registration, Login, and Profile UX
@@ -12,7 +12,7 @@ An example Django app to learn some of the best practices.
 - Unit tests for models (using `pytest`, `pytest-cov`, and `model-bakery`)
 - Ruff as code linter and formatter + Pre-commit hook
 - CI configuration using Github Action
-- Modular settings structure, using `django-split-settings`
+- Modular settings structure, using `django-split-settings` (credit to https://github.com/wemake-services)
 - Configured Django Debug Toolbar
 - Base template/style leveraging `django-style` and TailwindCSS
 - Management commands
@@ -45,13 +45,18 @@ Create the admin account:
 python manage.py createsuperuser
 ```
 
-Create fake data:
+Setup the site's database with needed stuff (groups/permissions, social auth, etc):
+
+```
+python manage.py setup_site
+```
+
+Create fake data (optional):
 
 ```
 python manage.py populate --user --is-staff
 python manage.py populate --author
 python manage.py populate --quote
-
 ```
 
 Start the Django development server:
