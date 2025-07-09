@@ -2,7 +2,10 @@
 name = "djangoexampleapp"
 version = "0.1.0"
 requires-python = ">=3.11"
-dependencies = [
+dependencies = []
+
+[dependency-groups]
+dev = [
     "argon2-cffi==23.1.0",
     "cryptography==45.0.2",
     "django==5.2",
@@ -39,4 +42,8 @@ dependencies = [
     "requests-oauthlib==2.0.0",
     "ruff==0.11.8",
     "structlog==25.3.0",
+]
+
+non-dev = [
+    "faker==37.3.0"
 ]
