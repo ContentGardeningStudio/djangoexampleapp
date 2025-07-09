@@ -1,7 +1,7 @@
 [project]
 name = "djangoexampleapp"
 version = "0.1.0"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 dependencies = [
     "argon2-cffi==23.1.0",
     "cryptography==45.0.2",
