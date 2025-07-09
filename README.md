@@ -17,6 +17,7 @@ An example Django app to learn some of the best practices.
 - Base template/style leveraging `django-style` and TailwindCSS
 - Management commands
 - Improved security using `django-axes` and `django-permissions-policy`
+- `uv` is used for Python project management
 
 ## Getting started
 
@@ -28,9 +29,11 @@ Clone the repository & install the dependencies:
 git clone https://github.com/ContentGardeningStudio/djangoexampleapp.git
 ```
 
+Install `uv`, and use it to install the project's dependencies in your virtual environment:
+
 ```
 (venv) cd djangoexampleapp
-(venv) pip install -r requirements.txt
+(venv) uv sync
 ```
 
 Initialize the database:
@@ -79,5 +82,4 @@ Run the tests using `pytest`:
 
 - Use env vars for project's secrets
 - Add optional social login, using https://github.com/pennersr/django-allauth
-- Move to `uv` for project management
 - Add Dockerfile

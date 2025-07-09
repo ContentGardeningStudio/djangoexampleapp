@@ -518,17 +518,21 @@ dependencies = [
     { name = "nltk" },
     { name = "oauthlib" },
     { name = "pillow" },
-    { name = "pre-commit" },
     { name = "pyjwt" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "pytest-django" },
     { name = "python-decouple" },
     { name = "rake-nltk" },
     { name = "requests" },
     { name = "requests-oauthlib" },
-    { name = "ruff" },
     { name = "structlog" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pre-commit" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "pytest-django" },
+    { name = "ruff" },
 ]
 
 [package.metadata]
@@ -558,17 +562,21 @@ requires-dist = [
     { name = "nltk", specifier = "==3.9.1" },
     { name = "oauthlib", specifier = "==3.2.2" },
     { name = "pillow", specifier = "==10.1.0" },
-    { name = "pre-commit", specifier = "==4.2.0" },
     { name = "pyjwt", specifier = "==2.10.1" },
-    { name = "pytest", specifier = "==7.4.3" },
-    { name = "pytest-cov", specifier = "==6.1.1" },
-    { name = "pytest-django", specifier = "==4.6.0" },
     { name = "python-decouple", specifier = "==3.8" },
     { name = "rake-nltk", specifier = "==1.0.6" },
     { name = "requests", specifier = "==2.32.3" },
     { name = "requests-oauthlib", specifier = "==2.0.0" },
-    { name = "ruff", specifier = "==0.11.8" },
     { name = "structlog", specifier = "==25.3.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pre-commit", specifier = "==4.2.0" },
+    { name = "pytest", specifier = "==7.4.3" },
+    { name = "pytest-cov", specifier = "==6.1.1" },
+    { name = "pytest-django", specifier = "==4.6.0" },
+    { name = "ruff", specifier = "==0.11.8" },
 ]
 
 [[package]]
