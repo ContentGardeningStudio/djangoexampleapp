@@ -24,7 +24,7 @@ class AccountViewsTests(TestCase):
         assert User.objects.filter(email="test@testing.com").exists()
 
     def test_login_view(self):
-        _ = User.objects.create_user(email="bob@testing.com", password="pass123")
+        _ = User.objects.create_user(email="bob@testing.com", password="pass123", is_active=True)
         response = self.client.post(
             reverse("account_login"),
             data={"username": "bob@testing.com", "password": "pass123"},
@@ -38,14 +38,14 @@ class AccountViewsTests(TestCase):
         # self.assertRedirects(response, f"{reverse('login')}?next={reverse('profile')}")
 
     def test_profile_view_logged_in(self):
-        _ = User.objects.create_user(email="alice@testing.com", password="pass123")
+        _ = User.objects.create_user(email="alice@testing.com", password="pass123", is_active=True)
         self.client.login(username="alice@testing.com", password="pass123")
         response = self.client.get(reverse("profile"))
         assert response.status_code == 200
         assert "site_nav" in response.context
 
     def test_edit_profile_view_post(self):
-        _ = User.objects.create_user(email="eve@testing.com", password="pass123")
+        _ = User.objects.create_user(email="eve@testing.com", password="pass123", is_active=True)
         self.client.login(username="eve@testing.com", password="pass123")
         response = self.client.post(
             reverse("edit_profile"), {"full_name": "Eve Adams", "bio": "Bio"}

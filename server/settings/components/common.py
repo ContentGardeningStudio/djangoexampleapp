@@ -143,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Account / Login settings
 LOGIN_REDIRECT_URL = "profile"
 ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
-ACCOUNT_SIGNUP_REDIRECT_URL = "profile"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/accounts/check-email/"
 
 # Using username-less signup flow with allauth
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
@@ -153,7 +153,8 @@ ACCOUNT_FORMS = {
     "signup": "accounts.forms.CustomAllauthSignupForm",
 }
 
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_REQUIRED = True
 
 # Other Security settings
 # https://docs.djangoproject.com/en/4.2/topics/security/
@@ -227,3 +228,6 @@ SOCIALACCOUNT_APPS = {
     #     "secret": "GITHUB_CLIENT_SECRET",
     # },
 }
+
+# Email backend for local development/testing
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

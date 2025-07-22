@@ -39,36 +39,38 @@ Install `uv`, and use it to install the project's dependencies in your virtual e
 Initialize the database:
 
 ```
-(venv) python manage.py migrate
+(venv) uv run manage.py migrate
 ```
 
 Create the admin account:
 
 ```
-python manage.py createsuperuser
+(venv) uv run manage.py createsuperuser
 ```
 
 Setup the site's database with needed stuff (groups/permissions, social auth, etc):
 
 ```
-python manage.py setup_site
-```
-
-Create fake data (optional):
-
-```
-python manage.py populate --user --is-staff
-python manage.py populate --author
-python manage.py populate --quote
+(venv) uv run manage.py setup_site
 ```
 
 Start the Django development server:
 
 ```
-python manage.py runserver
+(venv) uv run manage.py runserver
 ```
 
 Log in with the admin account using: http://127.0.0.1:8000/admin.
+
+## Site content creation script
+
+Create fake data (optional):
+
+```
+(venv) uv run manage.py populate --user --is-staff
+(venv) uv run manage.py populate --author
+(venv) uv run manage.py populate --quote
+```
 
 ## Tests
 

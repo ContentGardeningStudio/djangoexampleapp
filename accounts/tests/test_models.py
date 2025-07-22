@@ -7,7 +7,7 @@ from accounts.models import Profile, User
 
 @pytest.mark.django_db
 def test_create_user():
-    user = baker.make(User, email="test@example.com", password="password123")
+    user = baker.make(User, email="test@example.com", password="password123", is_active=True)
     assert user.email == "test@example.com"
     assert user.is_active
     assert not user.is_staff
@@ -29,7 +29,7 @@ def test_create_superuser():
 
 @pytest.mark.django_db
 def test_create_profile():
-    user = baker.make(User, email="test@example.com", password="password123")
+    user = baker.make(User, email="test@example.com", password="password123", is_active=True)
     # profile has been created because of the signal
     profile = Profile.objects.get(user=user)
     assert str(profile) == "test@example.com"
@@ -41,3 +41,26 @@ def test_create_profile():
     profile.save()
     # assert profile.picture.url.startswith("/profile_pics/test_image_")
     assert profile.bio == "Test Bio"
+
+
+@pytest.mark.django_db
+def test_create_user_defaults():
+    user = User.objects.create_user(email="test2@example.com", password="password123")
+    assert user.email == "test2@example.com"
+    assert not user.is_active  # Now should be False by default
+    assert not user.email_verified  # Should be False by default
+
+@pytest.mark.django_db
+def test_email_verification_signal():
+    user = User.objects.create_user(email="verifyme@example.com", password="password123")
+    from allauth.account.signals import email_confirmed
+    from django.dispatch import Signal
+    # Simulate email confirmation
+    class DummyEmailAddress:
+        def __init__(self, user):
+            self.user = user
+    email_address = DummyEmailAddress(user)
+    email_confirmed.send(sender=None, request=None, email_address=email_address)
+    user.refresh_from_db()
+    assert user.email_verified
+    assert user.is_active

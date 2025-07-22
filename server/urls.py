@@ -23,6 +23,7 @@ urlpatterns = [
         name="account_login",
     ),
     path("accounts/", include("allauth.urls")),  # enables social + email login
+    path("accounts/check-email/", accounts_views.CheckEmailView.as_view(), name="account_check_email"),
     path("profile/", accounts_views.ProfileView.as_view(), name="profile"),
     path(
         "profile/edit/",
