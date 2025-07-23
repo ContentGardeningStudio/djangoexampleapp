@@ -47,7 +47,7 @@ def test_create_profile():
 def test_create_user_defaults():
     user = User.objects.create_user(email="test2@example.com", password="password123")
     assert user.email == "test2@example.com"
-    assert not user.is_active  # Now should be False by default
+    assert user.is_active  # Should be True by default
     assert not user.email_verified  # Should be False by default
 
 @pytest.mark.django_db
@@ -63,4 +63,3 @@ def test_email_verification_signal():
     email_confirmed.send(sender=None, request=None, email_address=email_address)
     user.refresh_from_db()
     assert user.email_verified
-    assert user.is_active

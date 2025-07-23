@@ -16,16 +16,6 @@ from .models import Profile
 class CustomSignupView(SiteNavMixin, SignupView):
     template_name = "account/signup.html"
 
-    def form_valid(self, form):
-        user = form.save(self.request)
-        return complete_signup(
-            self.request,
-            user,
-            allauth_settings.EMAIL_VERIFICATION,
-            # self.get_success_url()
-            settings.ACCOUNT_SIGNUP_REDIRECT_URL
-        )
-
 
 class CustomLoginView(SiteNavMixin, LoginView):
     template_name = "account/login.html"
@@ -44,7 +34,3 @@ class EditProfileView(SiteNavMixin, LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user.profile
-
-
-class CheckEmailView(SiteNavMixin, TemplateView):
-    template_name = "account/check_email.html"

@@ -5,5 +5,4 @@ from django.dispatch import receiver
 def set_email_verified(request, email_address, **kwargs):
     user = email_address.user
     user.email_verified = True
-    user.is_active = True
-    user.save() 
+    user.save()

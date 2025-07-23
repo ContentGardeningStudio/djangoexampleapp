@@ -15,9 +15,4 @@ class Migration(migrations.Migration):
             name='email_verified',
             field=models.BooleanField(default=False),
         ),
-        migrations.AlterField(
-            model_name='user',
-            name='is_active',
-            field=models.BooleanField(default=False),
-        ),
     ]

@@ -16,20 +16,12 @@ urlpatterns = [
         name="author",
     ),
     path("admin/", admin.site.urls),
-    path("accounts/signup/", accounts_views.CustomSignupView.as_view(), name="signup"),
-    path(
-        "accounts/login/",
-        accounts_views.CustomLoginView.as_view(),
-        name="account_login",
-    ),
     path("accounts/", include("allauth.urls")),  # enables social + email login
-    path("accounts/check-email/", accounts_views.CheckEmailView.as_view(), name="account_check_email"),
+    path("accounts/signup/", accounts_views.CustomSignupView.as_view(), name="signup"),
+    
+    path("accounts/login/", accounts_views.CustomLoginView.as_view(), name="account_login"),
     path("profile/", accounts_views.ProfileView.as_view(), name="profile"),
-    path(
-        "profile/edit/",
-        accounts_views.EditProfileView.as_view(),
-        name="edit_profile",
-    ),
+    path("profile/edit/", accounts_views.EditProfileView.as_view(), name="edit_profile"),
 ] + debug_toolbar_urls()
 
 if settings.DEBUG:
