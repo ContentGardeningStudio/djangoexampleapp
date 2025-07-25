@@ -62,7 +62,7 @@
               <a href="{% url 'account_login' %}" class="text-sm/6 font-semibold">Login</a>
             {% endif %}
             {% if request.user.is_anonymous %}
-              <a href="{% url 'signup' %}" class="text-sm/6 font-semibold">Sign Up</a>
+              <a href="{% url 'account_signup' %}" class="text-sm/6 font-semibold">Sign Up</a>
             {% endif %}
             {% if request.user.is_authenticated %}
               <a href="{% url 'profile' %}" class="text-sm/6 font-semibold">Profile</a>

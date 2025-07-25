@@ -7,7 +7,8 @@ An example Django app to learn some of the best practices.
 ## Package / Demo features
 
 - Custom `User` model and associated `Profile` model
-- Registration, Login, and Profile UX
+- Accounts (Registration / Login) based on Allauth
+- Profile UX
 - `Quote` model, to support data created by users in the app
 - Unit tests for models (using `pytest`, `pytest-cov`, and `model-bakery`)
 - Ruff as code linter and formatter + Pre-commit hook
