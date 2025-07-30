@@ -4,15 +4,16 @@ import sys
 import warnings
 
 import markovify
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import Group
 from django.db import IntegrityError
 from django.utils.text import slugify
 from django_docopt_command import DocOptCommand
+from faker import Faker
 from model_bakery import baker
 
 from accounts.models import Profile, User
 from quotes.models import Quote, QuoteAuthor
-from server.utils import model_data_customizer
 
 # Optional: RAKE
 try:
@@ -26,6 +27,38 @@ except ImportError:
     USE_RAKE = False
 
 warnings.filterwarnings("ignore")
+
+fake = Faker()
+
+
+def model_data_customizer(model_name, **kwargs):
+    match model_name:
+        case "user":
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            person = {
+                "full_name": f"{first_name} {last_name}",
+                "email": f"{first_name.lower()}.{last_name.lower()}@{fake.domain_name()}",
+            }
+            if "is_staff" in kwargs:
+                person["is_staff"] = kwargs["is_staff"]
+            else:
+                person["is_staff"] = fake.boolean()
+            return person
+        case "quote":
+            users = User.objects.filter(is_active=True)
+            profiles = Profile.objects.filter(user__in=users)
+            authors = QuoteAuthor.objects.all()
+            return {
+                "quote": fake.sentence(nb_words=random.randint(6, 15)),
+                "author": random.choice(authors),
+                "poster": random.choice(profiles),
+                "posted_date": fake.date_this_decade(),
+            }
+        case "author":
+            return {"name": fake.name(), "country": fake.country_code()}
+        case _:
+            print("Not handled!")
 
 
 class Command(DocOptCommand):
@@ -52,7 +85,7 @@ class Command(DocOptCommand):
             nlp_model = markovify.Text(corpus)
 
             # create quotes
-            for _ in range(20):
+            for _ in range(10):
                 data = model_data_customizer("quote")
                 # override the default quote text using the NLP model
                 data["quote"] = nlp_model.make_short_sentence(140)
@@ -85,26 +118,41 @@ class Command(DocOptCommand):
         elif arguments["--user"]:
             # handles user + profile
             for _ in range(5):
-                data = model_data_customizer("user", is_staff=arguments["--is-staff"])
-                user_data = {"email": data["email"]}
+                # print(arguments["--is-staff"])
+                person_data = model_data_customizer(
+                    "user", is_staff=arguments["--is-staff"]
+                )
+
+                # Rework the data needed for the user obj here
+                user_data = person_data.copy()
+                del user_data["full_name"]
                 new_user = baker.make(User, **user_data)
+
                 # refresh to avoid the signal side effect
                 new_user.refresh_from_db()
+
+                # set the password
+                fake_password = fake.password(length=10)
+                new_user.password = make_password(fake_password)
+                new_user.save()
+
                 # add to the right group
                 new_user.groups.add(Group.objects.get(name="Members"))
 
-                print(
-                    f"New member user created: {new_user.email} (Staff? {new_user.is_staff})"
-                )
-
                 # Also update the profile which was created via the signal
                 new_user_prof = Profile.objects.get(user=new_user)
-                new_user_prof.full_name = data["full_name"]
+                new_user_prof.full_name = person_data["full_name"]
                 new_user_prof.save()
-                print(f"=> Profile for the user created: {new_user_prof.full_name}")
+
+                msg = f"New member user created: {new_user_prof.full_name} - {new_user.email} - {fake_password}"
+                if new_user.is_staff:
+                    msg = f"{msg} (STAFF)"
+                print(msg)
         elif arguments["--author"]:
-            for _ in range(10):
+            for _ in range(5):
                 data = model_data_customizer("author")
                 data["slug"] = slugify(data["name"])
                 new_author = baker.make(QuoteAuthor, **data)
-                print(f"New author created: {new_author} {new_author.slug}")
+                print(
+                    f"New author created: {new_author.name} (country: {new_author.country}) - {new_author.slug}"
+                )

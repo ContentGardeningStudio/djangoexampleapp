@@ -1,0 +1,46 @@
+[project]
+name = "djangoexampleapp"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "argon2-cffi==23.1.0",
+    "cryptography==45.0.2",
+    "django==5.2",
+    "django-allauth==65.8.1",
+    "django-axes==7.1.0",
+    "django-countries==7.6.1",
+    "django-debug-toolbar==5.2.0",
+    "django-docopt-command==1.1.0",
+    "django-migration-linter==5.2.0",
+    "django-permissions-policy==4.26.0",
+    "django-query-counter==0.4.1",
+    "django-split-settings==1.3.2",
+    "django-stubs==5.2.0",
+    "django-stubs-ext==5.2.0",
+    "django-style==0.1.1",
+    "django-taggit==6.1.0",
+    "django-widget-tweaks==1.5.0",
+    "django-zeal==2.0.4",
+    "faker==37.3.0",
+    "jwt==1.3.1",
+    "markovify==0.9.4",
+    "model-bakery==1.20.4",
+    "nltk==3.9.1",
+    "oauthlib==3.2.2",
+    "pillow==10.1.0",
+    "pyjwt==2.10.1",
+    "python-decouple==3.8",
+    "rake-nltk==1.0.6",
+    "requests==2.32.3",
+    "requests-oauthlib==2.0.0",
+    "structlog==25.3.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==7.4.3",
+    "pytest-cov==6.1.1",
+    "pytest-django == 4.6.0",
+    "ruff==0.11.8",
+    "pre-commit==4.2.0",
+]

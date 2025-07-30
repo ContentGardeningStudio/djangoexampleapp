@@ -16,7 +16,9 @@ class CustomAllauthSignupForm(SignupForm):
             )
 
     def save(self, request):
+        print("[DEBUG] CustomAllauthSignupForm.save() called")
         user = super().save(request)
+        print(f"[DEBUG] User created: {user} (is_active={user.is_active})")
         # Optional: perform extra actions (e.g. profile updates) here
         return user
 

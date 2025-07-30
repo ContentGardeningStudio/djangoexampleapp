@@ -1,4 +1,7 @@
 from allauth.account.views import LoginView, SignupView
+from allauth.account.utils import complete_signup
+from allauth.account import app_settings as allauth_settings
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView

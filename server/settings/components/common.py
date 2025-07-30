@@ -16,33 +16,31 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # Our apps
-    "accounts",
-    "quotes",
-    "server",
-    # Default django apps
-    "django.contrib.sites",  # Required by allauth
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Allauth
+    "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     # Needed providers
     "allauth.socialaccount.providers.google",
-    "allauth.socialaccount.providers.github",
+    # "allauth.socialaccount.providers.github",
     # Style + UI tweaks
     "django_style",
     "widget_tweaks",
-    # Security
-    "axes",
-    # Other functionalities
+    # Our apps
+    "accounts",
+    "quotes",
+    "server",
+    # Other functionalities we depend on
     "taggit",
     "django_countries",
+    # Security
+    "axes",
 ]
 
 SITE_ID = 1
@@ -141,19 +139,24 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Account / Login settings
+
 LOGIN_REDIRECT_URL = "profile"
 ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
-ACCOUNT_SIGNUP_REDIRECT_URL = "profile"
+
+ACCOUNT_SIGNUP_REDIRECT_URL = "/"
 
 # Using username-less signup flow with allauth
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_LOGIN_METHODS = {"email"}
-ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+# ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 ACCOUNT_FORMS = {
     "signup": "accounts.forms.CustomAllauthSignupForm",
 }
 
-ACCOUNT_EMAIL_VERIFICATION = "none"
+AUTH_USER_MODEL = "accounts.User"
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_REQUIRED = True
 
 # Other Security settings
 # https://docs.djangoproject.com/en/4.2/topics/security/
@@ -227,3 +230,6 @@ SOCIALACCOUNT_APPS = {
     #     "secret": "GITHUB_CLIENT_SECRET",
     # },
 }
+
+# Email backend for local development/testing
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
