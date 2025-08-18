@@ -10,8 +10,8 @@ EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 # EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"  # or amazon_ses.EmailBackend, or...
 
 ANYMAIL = {
-    "BREVO_API_KEY": config("BREVO_API_KEY"),
-    #     "MAILGUN_API_KEY": config('MAILGUN_API_KEY'),
+    "BREVO_API_KEY": config("BREVO_API_KEY", default=""),
+    #     "MAILGUN_API_KEY": config('MAILGUN_API_KEY', default=""),
     #     "MAILGUN_API_URL": "https://api.eu.mailgun.net/v3",
     #     "MAILGUN_SENDER_DOMAIN": 'mydomain.com',  # your Mailgun domain, if needed
 }
