@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django_countries",
     # Security
     "axes",
+    "anymail",
 ]
 
 SITE_ID = 1
@@ -155,17 +156,14 @@ AUTH_USER_MODEL = "accounts.User"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
 # ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_LOGIN_METHODS = {"email"}
 
 
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
 # ACCOUNT_EMAIL_REQUIRED = True
 # ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
-
-
-
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
 
 
 # Other Security settings

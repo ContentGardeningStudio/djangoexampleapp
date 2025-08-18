@@ -1,5 +1,4 @@
 from server.settings.components import config
-import os
 
 EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -15,5 +14,7 @@ ANYMAIL = {
     #     "MAILGUN_API_URL": "https://api.eu.mailgun.net/v3",
     #     "MAILGUN_SENDER_DOMAIN": 'mydomain.com',  # your Mailgun domain, if needed
 }
-# DEFAULT_FROM_EMAIL = "contact@mydomain.com"  # if you don't already have this in settings
+DEFAULT_FROM_EMAIL = (
+    "info@contentgardening.com"  # if you don't already have this in settings
+)
 # # SERVER_EMAIL = "your-server@example.com"  # ditto (default from-email for Django errors)

@@ -39,3 +39,7 @@ Thumbs.db
 
 #Dump files
 dump.rdb
+
+media/
+profile_pics/
+.gitignore
