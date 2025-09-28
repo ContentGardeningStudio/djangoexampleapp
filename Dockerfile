@@ -38,7 +38,5 @@ RUN --mount=type=cache,target=/root/.cache \
 # copy project
 COPY . .
 
-# COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
-
-CMD ["sh", "./entrypoint.sh"]
+# Command de RUN
+ENTRYPOINT ["sh", "-c", "uv run manage.py migrate && uv run manage.py runserver 0.0.0.0:8000"]
