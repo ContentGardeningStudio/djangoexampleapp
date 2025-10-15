@@ -22,7 +22,9 @@ An example Django app to learn some of the best practices.
 
 ## Getting started
 
-You need a Python 3.10 (or higher) virtual environment.
+You need a Python 3.9+ virtual environment.
+
+### Using UV
 
 Clone the repository & install the dependencies:
 
@@ -63,6 +65,17 @@ Start the Django development server:
 
 Log in with the admin account using: http://127.0.0.1:8000/admin.
 
+### Using Docker
+
+```
+docker compose up --build
+```
+
+For production:
+```
+docker compose -f docker-compose.prod.yml  up --build
+```
+
 ## Site content creation script
 
 Create fake data (optional):
@@ -85,4 +98,3 @@ Run the tests using `pytest`:
 
 - Use env vars for project's secrets
 - Add optional social login, using https://github.com/pennersr/django-allauth
-- Add Dockerfile
