@@ -33,7 +33,7 @@ dependencies = [
     "python-decouple==3.8",
     "python-dotenv>=1.1.1",
     "rake-nltk==1.0.6",
-    "requests==2.32.3",
+    "requests==2.32.4",
     "requests-oauthlib==2.0.0",
     "structlog==25.3.0",
 ]
